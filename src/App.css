@@ -1,0 +1,19 @@
+.main_content {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 100px 70% 15%;
+    gap: 20px;
+    background-color: blueviolet;
+}
+
+.header {
+    grid-row: 1;
+}
+
+.footer {
+    grid-row: 3;
+}
+
+.main {
+    grid-row:2
+}
