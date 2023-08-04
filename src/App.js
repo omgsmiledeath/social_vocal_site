@@ -8,6 +8,7 @@ import Blog from './Components/Main/Blog/Blog';
 import Course from './Components/Main/Course/Course';
 import Lessons from './Components/Main/Lessons/Lessons';
 import Recording from './Components/Main/Recording/Recording';
+import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
       <Route path='about' element={<About />} />
       <Route path='blog' element={<Blog />} />
       <Route path='course' element={<Course />} />
-      <Route path='recording' element={<Recording />} />
+      <Route path='recording' element={<RecordingContainer />} />
       <Route path='lessons' element={<Lessons />} />
       </Routes>
     <Footer />

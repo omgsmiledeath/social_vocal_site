@@ -1,8 +1,13 @@
 import React from "react";
 
 const Recording = (props) => {
+    
     return (
-        <div>This online registration </div>
+        <div>
+            <div>
+                {props.Recording.selectedDay}
+            </div>
+        </div>
     );
 }
 
