@@ -5,3 +5,5 @@ const Footer = (props) => {
         <div>Info about keerah8studio</div>
     );
 }
+
+export default Footer;
