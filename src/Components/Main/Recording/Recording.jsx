@@ -1,12 +1,11 @@
 import React from "react";
+import DayViewComponent from "./DayView/DayViewComponent";
 
 const Recording = (props) => {
-    
+
     return (
         <div>
-            <div>
-                {props.Recording.selectedDay}
-            </div>
+            <DayViewComponent />
         </div>
     );
 }

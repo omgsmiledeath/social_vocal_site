@@ -12,11 +12,11 @@ import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 
 function App() {
   return (
-   <div className='main_content'>
-    <div className='header'>   
-       <Header /> 
+   <div >
+    <div >   
+       {/* <Header />  */}
        </div>
-    <div className='main'>
+    <div>
       <Routes>
       <Route path='about' element={<About />} />
       <Route path='blog' element={<Blog />} />
@@ -25,8 +25,8 @@ function App() {
       <Route path='lessons' element={<Lessons />} />
       </Routes>
       </div>
-      <div className='footer'> 
-    <Footer />
+      <div > 
+    {/* <Footer /> */}
     </div>
    </div>
   );
