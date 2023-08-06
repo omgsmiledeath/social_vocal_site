@@ -48,7 +48,6 @@ let initialState = {
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
-    debugger
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
