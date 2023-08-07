@@ -5,14 +5,22 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
 
  let mapStateToProps = (state) => {
     
+   let filtredSelectedDayEntries = () => {
+      let newArr = [];
+      state.Recording.entries.forEach( (item ) => {
+         let day = Number(item.date.getDate());
+      console.log(day==state.Recording.selectedDay)
+        if(day===state.Recording.selectedDay)
+        {
+        newArr.push(item);
+        }
+      })
+      return newArr; 
+   } 
+
     return {
     selectedDay:state.Recording.selectedDay,
-    selectedDayEntries:state.Recording.entries.map(item => {
-      debugger
-      let day = item.date.getDate();
-        if(day===state.Recording.selectedDay)
-        return item;
-    }), 
+    selectedDayEntries:filtredSelectedDayEntries(),
     inputEntries:state.Recording.inputEntries
     }
  }

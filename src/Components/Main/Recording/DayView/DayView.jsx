@@ -7,13 +7,16 @@ const DayView = (props) => {
     const inputEntries = props.inputEntries.map((item) => {
         return (<input type="checkbox" id={item.id} key={item.id} onChange={onChangeInput} checked={item.checked} />  )      
     });
-   
+    
+    const selectedEntries = props.selectedDayEntries.map( (item) => {
+        return (<div key={item.id}>{item.id}</div>)
+    });
     return(
         <div>
             <div>
             {inputEntries}
             </div>
-            {props.selectedDayEntries}
+            {selectedEntries}
         </div>
     )
 }
