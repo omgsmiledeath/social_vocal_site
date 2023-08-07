@@ -7,7 +7,6 @@ import About from './Components/Main/About/About';
 import Blog from './Components/Main/Blog/Blog';
 import Course from './Components/Main/Course/Course';
 import Lessons from './Components/Main/Lessons/Lessons';
-import Recording from './Components/Main/Recording/Recording';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 
 function App() {

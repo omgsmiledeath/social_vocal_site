@@ -67,8 +67,7 @@ export const RecordingReducer = (state = initialState, action) => {
                 entries: state.Recording.entries,
                 selectedDay: state.Recording.selectedDay,
                 newEntry: state.Recording.newEntry,
-                inputEntries: state.Recording.inputEntries.map((item) => {
-                    
+                inputEntries: state.Recording.inputEntries.map((item) => {                  
                     if (item.id === action.checkedId) item.checked = !item.checked;
                     return item;
                 })
