@@ -8,7 +8,9 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
     return {
     selectedDay:state.Recording.selectedDay,
     selectedDayEntries:state.Recording.entries.map(item => {
-        if(item.date===state.Recording.selectedDay)
+      debugger
+      let day = item.date.getDate();
+        if(day===state.Recording.selectedDay)
         return item;
     }), 
     inputEntries:state.Recording.inputEntries

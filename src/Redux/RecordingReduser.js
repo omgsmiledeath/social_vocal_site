@@ -24,19 +24,19 @@ let initialState = {
         entries: [
             {
                 id: 1,
-                date: "04.08.2023T19:00",
+                date: new Date(2023,8,4,18,0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 2,
-                date: "04.08.2023T20:00",
+                date: new Date(2023,8,4,19,0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 3,
-                date: "05.08.2023T21:00",
+                date: new Date(2023,8,5,18,0),
                 status: CONFIRMED_STATUS,
                 owner: "band2"
             },],
