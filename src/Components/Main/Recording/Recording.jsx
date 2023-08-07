@@ -1,11 +1,11 @@
 import React from "react";
-import DayViewComponent from "./DayView/DayViewComponent";
+import DayViewContainer from "./DayView/DayViewContainer";
 
 const Recording = (props) => {
 
     return (
         <div>
-            <DayViewComponent />
+            <DayViewContainer />
         </div>
     );
 }

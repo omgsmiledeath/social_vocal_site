@@ -21,6 +21,6 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
     }
  }
 
-const DayViewComponent = connect(mapStateToProps,mapDispatchToProps)(DayView);
+const DayViewContainer = connect(mapStateToProps,mapDispatchToProps)(DayView);
 
-export default DayViewComponent;
+export default DayViewContainer;
