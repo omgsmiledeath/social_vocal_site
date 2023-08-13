@@ -14,7 +14,13 @@ const DayView = (props) => {
             if (elementHour===itemHour)
             disabled = true;
         });
-        return (<input type="checkbox" id={item.id} key={item.id} onChange={onChangeInput} checked={item.checked} disabled={disabled}/>  )      
+        return (
+        <div>
+        <span>{item.date.getHours()}:00</span><input type="checkbox" id={item.id} key={item.id} onChange={onChangeInput} 
+        checked={item.checked} disabled={disabled}/>
+
+        </div>  
+        );      
     });
     
     // props.selectedDayEntries.map( (item) => {
