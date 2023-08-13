@@ -1,5 +1,5 @@
 import React from "react";
-
+import css from './DayView.module.css';
 const DayView = (props) => {
     
     
@@ -23,7 +23,7 @@ const DayView = (props) => {
     // });
     return(
         <div>
-            <div>
+            <div className={css.wrapper}>
             {inputEntries}
             </div>
             
