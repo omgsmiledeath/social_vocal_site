@@ -1,20 +1,20 @@
 //КОНСТАНТЫ
 const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
+const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
 const CHANGE_SELECTED_DAY = "CHANGE_SELECTED_DAY";
 const setNewEntryStatus = "SET_NEW_ENTRY_STATUS";
 const CHANGE_INPUT_ENTRY =  "CHANGE_INPUT_ENTRY";
-
+const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => {return { type: CHANGE_SELECTED_DAY, day: newDay }};
 export const ChangeInputEntryStateCreator = (id) =>  {return { type: CHANGE_INPUT_ENTRY, checkedId: id }};
-
+export const AddNewEntryCreator=(newEntry) => { return {type:ADD_NEW_ENTRY,entry:newEntry}}
 
 //Временные методы
 const createInputEntries = () => {
     let entries=[];
     for (let i = 1; i <= 12; i++) {
         let createDate = new Date(2023,1,1,10+i);
-        console.log(createDate)
         entries.push({ id: i,date:createDate,checked: false })
     }
     return entries;
@@ -44,12 +44,13 @@ let initialState = {
             },],
             inputEntries: createInputEntries(),
         selectedDay: 4,
-        newEntry: {}
+        newEntry: {hourEntries:[],owner:"",status:NEW_ENTRY_STATUS}
     }
 }
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
+   
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
@@ -75,6 +76,25 @@ export const RecordingReducer = (state = initialState, action) => {
                 })
             }
             };
+        case ADD_NEW_ENTRY:
+            let newEntries=[];
+            let newEntry = state.Recording.newEntry;
+            for(let i=0;i<newEntry.hourEntries.length;i++){
+                newEntries.push({id:4+i,
+                    date:newEntry.date,
+                    owner:newEntry.owner,
+                    status:CONFIRMED_STATUS});
+            }
+            return {
+                Recording:{
+                    entries: [...state.Recording.entries,newEntries],
+                    selectedDay: state.Recording.selectedDay,
+                    newEntry: {hourEntries:[],owner:"",status:NEW_ENTRY_STATUS},
+                    inputEntries: state.Recording.inputEntries.map( (item) => { 
+                        if (item.checked ===false) item.checked=true;
+                        return item ;})
+                    }
+            }
         default:
             return state;
 

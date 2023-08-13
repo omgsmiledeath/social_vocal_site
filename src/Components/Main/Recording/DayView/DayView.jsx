@@ -7,8 +7,6 @@ const DayView = (props) => {
     const inputEntries = props.inputEntries.map((item) => {
         let disabled = false;
         props.selectedDayEntries.forEach(element => {
-            
-            console.log(item.date.getHours())
             let elementHour = element.date.getHours();
             let itemHour = item.date.getHours();
             if (elementHour===itemHour)

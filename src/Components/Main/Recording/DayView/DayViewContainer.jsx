@@ -1,4 +1,3 @@
-import React from "react";
 import { connect } from "react-redux";
 import DayView from "./DayView";
 import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser";
@@ -9,7 +8,6 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
       let newArr = [];
       state.Recording.entries.forEach( (item ) => {
          let day = Number(item.date.getDate());
-      console.log(day==state.Recording.selectedDay)
         if(day===state.Recording.selectedDay)
         {
         newArr.push(item);
@@ -21,7 +19,8 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
     return {
     selectedDay:state.Recording.selectedDay,
     selectedDayEntries:filtredSelectedDayEntries(),
-    inputEntries:state.Recording.inputEntries
+    inputEntries:state.Recording.inputEntries,
+    newEntry:state.Recording.newEntry
     }
  }
 
