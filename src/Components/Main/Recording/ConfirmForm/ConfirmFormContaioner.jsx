@@ -10,7 +10,7 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        addEntry : (newEntry) => dispatch(AddNewEntryCreator(newEntry))
+        addEntry : () => dispatch(AddNewEntryCreator())
     }
 }
 

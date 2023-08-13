@@ -8,7 +8,7 @@ const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => {return { type: CHANGE_SELECTED_DAY, day: newDay }};
 export const ChangeInputEntryStateCreator = (id) =>  {return { type: CHANGE_INPUT_ENTRY, checkedId: id }};
-export const AddNewEntryCreator=(newEntry) => { return {type:ADD_NEW_ENTRY,entry:newEntry}}
+export const AddNewEntryCreator=() => { return {type:ADD_NEW_ENTRY}}
 
 //Временные методы
 const createInputEntries = () => {
@@ -50,7 +50,7 @@ let initialState = {
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
-   
+   debugger;
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
