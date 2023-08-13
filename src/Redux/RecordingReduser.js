@@ -13,7 +13,9 @@ export const ChangeInputEntryStateCreator = (id) =>  {return { type: CHANGE_INPU
 const createInputEntries = () => {
     let entries=[];
     for (let i = 1; i <= 12; i++) {
-        entries.push({ id: i,date:new Date().setHours(10+i),checked: true })
+        let createDate = new Date(2023,1,1,10+i);
+        console.log(createDate)
+        entries.push({ id: i,date:createDate,checked: false })
     }
     return entries;
 }
