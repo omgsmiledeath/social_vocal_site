@@ -3,13 +3,13 @@ import React from "react";
 const Header = (props) => {
     return(
         <div>
-            <ul >
-                <li>About</li>
-                <li>Blog</li>
-                <li>Course</li>
-                <li>Lessons</li>
-                <li>Recording</li>
-            </ul>
+            <div>
+                <span><a href="\about">About</a></span>
+                <span><a href="\blog">Blog</a></span>
+                <span><a href="\course">Course</a></span>
+                <span><a href="\lessons">Lessons</a></span>
+                <span><a href="\recording">Recording</a></span>
+            </div>
         </div>
     );
 }

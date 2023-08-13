@@ -13,7 +13,7 @@ export const ChangeInputEntryStateCreator = (id) =>  {return { type: CHANGE_INPU
 const createInputEntries = () => {
     let entries=[];
     for (let i = 1; i <= 12; i++) {
-        entries.push({ id: i, checked: false })
+        entries.push({ id: i, checked: true })
     }
     return entries;
 }
