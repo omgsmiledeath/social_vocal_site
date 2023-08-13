@@ -23,10 +23,6 @@ const DayView = (props) => {
         );      
     });
     
-    // props.selectedDayEntries.map( (item) => {
-    //     // debugger
-    //     inp
-    // });
     return(
         <div>
             <div className={css.wrapper}>
