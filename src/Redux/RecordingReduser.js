@@ -66,14 +66,27 @@ export const RecordingReducer = (state = initialState, action) => {
         case setNewEntryStatus.type:
             return state;
         case CHANGE_INPUT_ENTRY:
-
+            const stateNewEntry = state.Recording.newEntry;
             return {
                 Recording: {
                     entries: state.Recording.entries,
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: state.Recording.newEntry,
+                    newEntry: stateNewEntry,
                     inputEntries: state.Recording.inputEntries.map((item) => {
-                        if (item.id === action.checkedId) item.checked = !item.checked;
+                        if (item.id === action.checkedId) {
+                            debugger;
+                            item.checked = !item.checked;
+                            if(item.checked===true)
+                            {
+                            stateNewEntry.hourEntries.push(item);
+                            }
+                            else {
+                                
+                            let index = stateNewEntry.hourEntries.findIndex((item)=>item.checked===false);
+                            stateNewEntry.hourEntries.slice(index,index); 
+                            }
+
+                        }
                         return item;
                     })
                 }
