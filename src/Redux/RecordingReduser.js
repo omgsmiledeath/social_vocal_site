@@ -82,16 +82,17 @@ export const RecordingReducer = (state = initialState, action) => {
             for(let i=0;i<newEntry.hourEntries.length;i++){
                 newEntries.push({id:4+i,
                     date:newEntry.date,
-                    owner:newEntry.owner,
-                    status:CONFIRMED_STATUS});
+                    status:CONFIRMED_STATUS,
+                    owner:newEntry.owner
+                    });
             }
             return {
                 Recording:{
-                    entries: [...state.Recording.entries,newEntries],
+                    entries: [...state.Recording.entries,...newEntries],
                     selectedDay: state.Recording.selectedDay,
                     newEntry: {hourEntries:[],owner:"",status:NEW_ENTRY_STATUS},
                     inputEntries: state.Recording.inputEntries.map( (item) => { 
-                        if (item.checked ===false) item.checked=true;
+                        if (item.checked ===true) item.checked=false;
                         return item ;})
                     }
             }
