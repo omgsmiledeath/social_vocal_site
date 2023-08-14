@@ -1,21 +1,23 @@
 //КОНСТАНТЫ
 const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
 const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
+
 const CHANGE_SELECTED_DAY = "CHANGE_SELECTED_DAY";
 const setNewEntryStatus = "SET_NEW_ENTRY_STATUS";
-const CHANGE_INPUT_ENTRY =  "CHANGE_INPUT_ENTRY";
+const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
+
 //Action Creators
-export const ChangeSelectedDayCreator = (newDay) => {return { type: CHANGE_SELECTED_DAY, day: newDay }};
-export const ChangeInputEntryStateCreator = (id) =>  {return { type: CHANGE_INPUT_ENTRY, checkedId: id }};
-export const AddNewEntryCreator=() => { return {type:ADD_NEW_ENTRY}}
+export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
+export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
+export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 
 //Временные методы
 const createInputEntries = () => {
-    let entries=[];
+    let entries = [];
     for (let i = 1; i <= 12; i++) {
-        let createDate = new Date(2023,1,1,10+i);
-        entries.push({ id: i,date:createDate,checked: false })
+        let createDate = new Date(2023, 1, 1, 10 + i);
+        entries.push({ id: i, date: createDate, checked: false })
     }
     return entries;
 }
@@ -26,75 +28,77 @@ let initialState = {
         entries: [
             {
                 id: 1,
-                date: new Date(2023,8,4,18,0),
+                date: new Date(2023, 8, 4, 18, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 2,
-                date: new Date(2023,8,4,19,0),
+                date: new Date(2023, 8, 4, 19, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 3,
-                date: new Date(2023,8,5,18,0),
+                date: new Date(2023, 8, 5, 18, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band2"
             },],
-            inputEntries: createInputEntries(),
+        inputEntries: createInputEntries(),
         selectedDay: 4,
-        newEntry: {hourEntries:[],owner:"",status:NEW_ENTRY_STATUS}
+        newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS }
     }
 }
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
-   debugger;
+    debugger;
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
-                Recording:{
-                entries: state.Recording.entries,
-                selectedDay: action.day,
-                newEntry: state.Recording.newEntry,
-                inputEntries: state.Recording.inputEntries
+                Recording: {
+                    entries: state.Recording.entries,
+                    selectedDay: action.day,
+                    newEntry: state.Recording.newEntry,
+                    inputEntries: state.Recording.inputEntries
                 }
             };
         case setNewEntryStatus.type:
             return state;
         case CHANGE_INPUT_ENTRY:
-           
+
             return {
-                Recording:{
-                entries: state.Recording.entries,
-                selectedDay: state.Recording.selectedDay,
-                newEntry: state.Recording.newEntry,
-                inputEntries: state.Recording.inputEntries.map((item) => {                  
-                    if (item.id === action.checkedId) item.checked = !item.checked;
-                    return item;
-                })
-            }
+                Recording: {
+                    entries: state.Recording.entries,
+                    selectedDay: state.Recording.selectedDay,
+                    newEntry: state.Recording.newEntry,
+                    inputEntries: state.Recording.inputEntries.map((item) => {
+                        if (item.id === action.checkedId) item.checked = !item.checked;
+                        return item;
+                    })
+                }
             };
         case ADD_NEW_ENTRY:
-            let newEntries=[];
+            let newEntries = [];
             let newEntry = state.Recording.newEntry;
-            for(let i=0;i<newEntry.hourEntries.length;i++){
-                newEntries.push({id:4+i,
-                    date:newEntry.date,
-                    status:CONFIRMED_STATUS,
-                    owner:newEntry.owner
-                    });
+            for (let i = 0; i < newEntry.hourEntries.length; i++) {
+                newEntries.push({
+                    id: 4 + i,
+                    date: newEntry.date,
+                    status: CONFIRMED_STATUS,
+                    owner: newEntry.owner
+                });
             }
             return {
-                Recording:{
-                    entries: [...state.Recording.entries,...newEntries],
+                Recording: {
+                    entries: [...state.Recording.entries, ...newEntries],
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: {hourEntries:[],owner:"",status:NEW_ENTRY_STATUS},
-                    inputEntries: state.Recording.inputEntries.map( (item) => { 
-                        if (item.checked ===true) item.checked=false;
-                        return item ;})
-                    }
+                    newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS },
+                    inputEntries: state.Recording.inputEntries.map((item) => {
+                        if (item.checked === true) item.checked = false;
+                        return item;
+                    })
+                }
             }
         default:
             return state;
