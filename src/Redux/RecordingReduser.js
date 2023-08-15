@@ -50,7 +50,7 @@ let initialState = {
                 owner: "band2"
             },],
         inputEntries: createInputEntries(new Date(Date.now())),
-        selectedDay: new Date(2023, 8, 4),
+        selectedDay: new Date(Date.now),
         newEntry: { hourEntries: [], owner: "1111", status: NEW_ENTRY_STATUS }
     }
 }

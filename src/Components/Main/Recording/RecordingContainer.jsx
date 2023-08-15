@@ -5,7 +5,7 @@ import { ChangeSelectedDayCreator } from "../../../Redux/RecordingReduser";
 
 let mapStateToProps = (state) => {
     return{
-        Recording: state.Recording
+        date: state.Recording.selectedDay
     }
 }
 
