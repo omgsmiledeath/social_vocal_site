@@ -9,7 +9,6 @@ const Recording = (props) => {
         <div>
             <div>
                 <input type="date" onChange={onButtonClick}/>
-                <button onClick={onButtonClick}>Enter date</button>
             </div>
             <DayViewContainer />
             <ConfirmFormContainer />

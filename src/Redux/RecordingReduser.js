@@ -6,18 +6,22 @@ const CHANGE_SELECTED_DAY = "CHANGE_SELECTED_DAY";
 const setNewEntryStatus = "SET_NEW_ENTRY_STATUS";
 const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
+const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
+
 
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
 export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
-
+export const ChangeNewEntryOwnerCreator = (owner) => ({type:CHANGE_NEW_ENTRY_OWNER,value:owner});
 //Временные методы
 const createInputEntries = (date) => {
     let entries = [];
     for (let i = 1; i <= 13; i++) {
-       
-        let createDate = new Date(2023, 1, 1, 10 + i);
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        let day = date.getDate();
+        let createDate = new Date(year, month, day, 10 + i);
         entries.push({ id: i, date: createDate, checked: false })
     }
     return entries;
@@ -45,9 +49,9 @@ let initialState = {
                 status: CONFIRMED_STATUS,
                 owner: "band2"
             },],
-        inputEntries: createInputEntries(),
+        inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(2023, 8, 4),
-        newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS }
+        newEntry: { hourEntries: [], owner: "1111", status: NEW_ENTRY_STATUS }
     }
 }
 
@@ -61,7 +65,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: state.Recording.entries,
                     selectedDay: action.day,
                     newEntry: state.Recording.newEntry,
-                    inputEntries: state.Recording.inputEntries
+                    inputEntries: createInputEntries(action.day)
                 }
             };
         case setNewEntryStatus.type:
@@ -71,8 +75,6 @@ export const RecordingReducer = (state = initialState, action) => {
             return {
                 Recording: {
                     entries: state.Recording.entries,
-                    selectedDay: state.Recording.selectedDay,
-                    newEntry: stateNewEntry,
                     inputEntries: state.Recording.inputEntries.map((item) => {
                         if (item.id === action.checkedId) {
                             debugger;
@@ -89,7 +91,9 @@ export const RecordingReducer = (state = initialState, action) => {
 
                         }
                         return item;
-                    })
+                    }),
+                    selectedDay: state.Recording.selectedDay,
+                    newEntry: stateNewEntry,
                 }
             };
         case ADD_NEW_ENTRY:
@@ -98,7 +102,7 @@ export const RecordingReducer = (state = initialState, action) => {
             for (let i = 0; i < newEntry.hourEntries.length; i++) {
                 newEntries.push({
                     id: 4 + i,
-                    date: newEntry.date,
+                    date: new Date(newEntry.hourEntries[i].date),
                     status: CONFIRMED_STATUS,
                     owner: newEntry.owner
                 });
@@ -106,14 +110,26 @@ export const RecordingReducer = (state = initialState, action) => {
             return {
                 Recording: {
                     entries: [...state.Recording.entries, ...newEntries],
+                    inputEntries: createInputEntries(state.Recording.selectedDay),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS },
-                    inputEntries: state.Recording.inputEntries.map((item) => {
-                        if (item.checked === true) item.checked = false;
-                        return item;
-                    })
+                    newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS }
                 }
             }
+            case CHANGE_NEW_ENTRY_OWNER:
+                
+                let changedEntry = {
+                    hourEntries:state.Recording.newEntry.hourEntries,
+                    owner:action.value,
+                    status:state.Recording.newEntry.status
+                }
+                return {
+                    Recording: {
+                        entries: state.Recording.entries,
+                        inputEntries: state.Recording.inputEntries,
+                        selectedDay:state.Recording.selectedDay,
+                        newEntry: changedEntry
+                    }
+                }
         default:
             return state;
 

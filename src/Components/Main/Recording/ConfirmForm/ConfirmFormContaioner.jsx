@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ConfirmForm from './ConfirmForm';
-import { AddNewEntryCreator } from "../../../../Redux/RecordingReduser";
+import { AddNewEntryCreator, ChangeNewEntryOwnerCreator } from "../../../../Redux/RecordingReduser";
 
 let mapStateToProps = (state) => {
     return {
@@ -10,7 +10,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return {
-        addEntry : () => dispatch(AddNewEntryCreator())
+        addEntry : () => dispatch(AddNewEntryCreator()),
+        changeOwner : (owner)=>dispatch(ChangeNewEntryOwnerCreator(owner))
     }
 }
 
