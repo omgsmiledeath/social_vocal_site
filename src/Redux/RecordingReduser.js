@@ -13,9 +13,10 @@ export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPU
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 
 //Временные методы
-const createInputEntries = () => {
+const createInputEntries = (date) => {
     let entries = [];
-    for (let i = 1; i <= 12; i++) {
+    for (let i = 1; i <= 13; i++) {
+       
         let createDate = new Date(2023, 1, 1, 10 + i);
         entries.push({ id: i, date: createDate, checked: false })
     }
@@ -28,24 +29,24 @@ let initialState = {
         entries: [
             {
                 id: 1,
-                date: new Date(2023, 8, 4, 18, 0),
+                date: new Date(2023, 7, 4, 18, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 2,
-                date: new Date(2023, 8, 4, 19, 0),
+                date: new Date(2023, 7, 4, 19, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band1"
             },
             {
                 id: 3,
-                date: new Date(2023, 8, 5, 18, 0),
+                date: new Date(2023, 7, 5, 18, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band2"
             },],
         inputEntries: createInputEntries(),
-        selectedDay: 4,
+        selectedDay: new Date(2023, 8, 4),
         newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS }
     }
 }

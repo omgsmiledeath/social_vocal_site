@@ -7,8 +7,9 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
    let filtredSelectedDayEntries = () => {
       let newArr = [];
       state.Recording.entries.forEach( (item ) => {
-         let day = Number(item.date.getDate());
-        if(day===state.Recording.selectedDay)
+         let thisday = Number(item.date.getDate());
+         let stateDay = Number(state.Recording.selectedDay.getDate())
+        if(thisday===stateDay)
         {
         newArr.push(item);
         }
