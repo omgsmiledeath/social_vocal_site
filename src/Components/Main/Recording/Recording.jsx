@@ -16,7 +16,7 @@ const Recording = (props) => {
     
      let onButtonClick = (e) => props.changeDay(new Date(e.target.value));
      console.log(getDate(props.date))
-     
+     console.log(props.date)
 
     return (
         <div>
