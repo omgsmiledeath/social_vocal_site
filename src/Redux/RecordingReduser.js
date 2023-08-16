@@ -27,6 +27,35 @@ const createInputEntries = (date) => {
     }
     return entries;
 }
+const checkAction = (inputEntries,stateNewEntry,action) => {
+    let tempEntries = inputEntries.map((item) => {
+        if (item.id === action.checkedId) {
+            debugger;
+            item.checked = !item.checked;
+            if(item.checked===true)
+            {
+            stateNewEntry.hourEntries.push(item);
+            }
+            else { 
+            let index = stateNewEntry.hourEntries.findIndex((item)=>item.checked===false);
+            stateNewEntry.hourEntries.slice(index,index); 
+            }
+        }
+        return item;
+    });
+    debugger;
+    let flag = false;
+    return tempEntries.map((item) =>{
+        if(item.checked===true) {
+            flag=!flag;
+            return item;
+        }
+        if(flag === true){
+            item.checked=true;
+        }
+        return item;
+    });
+}
 
 //Начальное состояние для Reducer
 let initialState = {
@@ -72,29 +101,12 @@ export const RecordingReducer = (state = initialState, action) => {
         case setNewEntryStatus.type:
             return state;
         case CHANGE_INPUT_ENTRY:
-            const stateNewEntry = state.Recording.newEntry;
             return {
                 Recording: {
                     entries: state.Recording.entries,
-                    inputEntries: state.Recording.inputEntries.map((item) => {
-                        if (item.id === action.checkedId) {
-                            debugger;
-                            item.checked = !item.checked;
-                            if(item.checked===true)
-                            {
-                            stateNewEntry.hourEntries.push(item);
-                            }
-                            else {
-                                
-                            let index = stateNewEntry.hourEntries.findIndex((item)=>item.checked===false);
-                            stateNewEntry.hourEntries.slice(index,index); 
-                            }
-
-                        }
-                        return item;
-                    }),
+                    inputEntries: checkAction(state.Recording.inputEntries,state.Recording.newEntry,action),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: stateNewEntry,
+                    newEntry: state.Recording.newEntry,
                 }
             };
         case ADD_NEW_ENTRY:
