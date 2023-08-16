@@ -5,10 +5,17 @@ const ConfirmForm = (props) => {
          props.addEntry() 
         };
     let onOwnerChange =(e) => props.changeOwner(e.target.value);
+    let onPhoneChange =(e) => props.changePhone(e.target.value);
     return (
         <div>
-            <input onChange={onOwnerChange} value={props.newEntry.owner}/>
-            <button onClick={onButtonClick} />
+            <div>
+                <span>Ваше имя(название команды)</span><input onChange={onOwnerChange} value={props.newEntry.owner}/>
+            </div>
+            <div>
+                <span>Контактный номер телефона</span> <input type="tel" value={props.newEntry.phone} onChange={onPhoneChange}/>
+            </div>
+            
+            <button onClick={onButtonClick}>Записаться</button>
             
         </div>
     );

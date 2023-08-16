@@ -7,13 +7,14 @@ const setNewEntryStatus = "SET_NEW_ENTRY_STATUS";
 const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
-
+const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
 
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
 export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({type:CHANGE_NEW_ENTRY_OWNER,value:owner});
+export const ChangeNewEntryPhoneCreator = (phone) => ({type:CHANGE_NEW_ENTRY_PHONE,value:phone})
 //Временные методы
 const createInputEntries = (date) => {
     let entries = [];
@@ -51,7 +52,7 @@ let initialState = {
             },],
         inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(Date.now()),
-        newEntry: { hourEntries: [], owner: "1111", status: NEW_ENTRY_STATUS }
+        newEntry: { hourEntries: [], owner: "1111",phone:'',status: NEW_ENTRY_STATUS }
     }
 }
 
@@ -112,14 +113,15 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: [...state.Recording.entries, ...newEntries],
                     inputEntries: createInputEntries(state.Recording.selectedDay),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: { hourEntries: [], owner: "", status: NEW_ENTRY_STATUS }
+                    newEntry: { hourEntries: [], owner: "",phone:'', status: NEW_ENTRY_STATUS }
                 }
             }
             case CHANGE_NEW_ENTRY_OWNER:
                 
-                let changedEntry = {
+                let changedEntryByOwner = {
                     hourEntries:state.Recording.newEntry.hourEntries,
                     owner:action.value,
+                    phone:state.Recording.newEntry.phone,
                     status:state.Recording.newEntry.status
                 }
                 return {
@@ -127,7 +129,22 @@ export const RecordingReducer = (state = initialState, action) => {
                         entries: state.Recording.entries,
                         inputEntries: state.Recording.inputEntries,
                         selectedDay:state.Recording.selectedDay,
-                        newEntry: changedEntry
+                        newEntry: changedEntryByOwner
+                    }
+                }
+            case CHANGE_NEW_ENTRY_PHONE:
+                let changedEntryByPhone = {
+                    hourEntries:state.Recording.newEntry.hourEntries,
+                    owner:state.Recording.newEntry.owner,
+                    phone:action.value,
+                    status:state.Recording.newEntry.status
+                }
+                return {
+                    Recording: {
+                        entries: state.Recording.entries,
+                        inputEntries: state.Recording.inputEntries,
+                        selectedDay:state.Recording.selectedDay,
+                        newEntry: changedEntryByPhone
                     }
                 }
         default:
