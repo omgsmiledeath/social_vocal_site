@@ -13,8 +13,8 @@ const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
 export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
-export const ChangeNewEntryOwnerCreator = (owner) => ({type:CHANGE_NEW_ENTRY_OWNER,value:owner});
-export const ChangeNewEntryPhoneCreator = (phone) => ({type:CHANGE_NEW_ENTRY_PHONE,value:phone})
+export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
+export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone })
 //Временные методы
 const createInputEntries = (date) => {
     let entries = [];
@@ -27,34 +27,32 @@ const createInputEntries = (date) => {
     }
     return entries;
 }
-const checkAction = (inputEntries,stateNewEntry,action) => {
+const checkAction = (inputEntries, stateNewEntry, action) => {
     let tempEntries = inputEntries.map((item) => {
         if (item.id === action.checkedId) {
-            debugger;
             item.checked = !item.checked;
-            if(item.checked===true)
-            {
-            stateNewEntry.hourEntries.push(item);
+            if (item.checked === true) {
+                stateNewEntry.hourEntries.push(item);
             }
-            else { 
-            let index = stateNewEntry.hourEntries.findIndex((item)=>item.checked===false);
-            stateNewEntry.hourEntries.slice(index,index); 
+            else {
+                let index = stateNewEntry.hourEntries.findIndex((item) => item.checked === false);
+                stateNewEntry.hourEntries.slice(index, index);
             }
         }
         return item;
     });
-    debugger;
-    let flag = false;
-    return tempEntries.map((item) =>{
-        if(item.checked===true) {
-            flag=!flag;
-            return item;
+
+    let idArr = stateNewEntry.hourEntries.map((item) => item.id);
+    if (idArr.length > 1) {
+        for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
+            
+            tempEntries[i].checked = true;
+            stateNewEntry.hourEntries.push(tempEntries[i]);
         }
-        if(flag === true){
-            item.checked=true;
-        }
-        return item;
-    });
+
+    }
+    return tempEntries;
+
 }
 
 //Начальное состояние для Reducer
@@ -81,13 +79,13 @@ let initialState = {
             },],
         inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(Date.now()),
-        newEntry: { hourEntries: [], owner: "1111",phone:'',status: NEW_ENTRY_STATUS }
+        newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS }
     }
 }
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
-    
+
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
@@ -104,7 +102,7 @@ export const RecordingReducer = (state = initialState, action) => {
             return {
                 Recording: {
                     entries: state.Recording.entries,
-                    inputEntries: checkAction(state.Recording.inputEntries,state.Recording.newEntry,action),
+                    inputEntries: checkAction(state.Recording.inputEntries, state.Recording.newEntry, action),
                     selectedDay: state.Recording.selectedDay,
                     newEntry: state.Recording.newEntry,
                 }
@@ -125,40 +123,40 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: [...state.Recording.entries, ...newEntries],
                     inputEntries: createInputEntries(state.Recording.selectedDay),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: { hourEntries: [], owner: "",phone:'', status: NEW_ENTRY_STATUS }
+                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS }
                 }
             }
-            case CHANGE_NEW_ENTRY_OWNER:
-                
-                let changedEntryByOwner = {
-                    hourEntries:state.Recording.newEntry.hourEntries,
-                    owner:action.value,
-                    phone:state.Recording.newEntry.phone,
-                    status:state.Recording.newEntry.status
+        case CHANGE_NEW_ENTRY_OWNER:
+
+            let changedEntryByOwner = {
+                hourEntries: state.Recording.newEntry.hourEntries,
+                owner: action.value,
+                phone: state.Recording.newEntry.phone,
+                status: state.Recording.newEntry.status
+            }
+            return {
+                Recording: {
+                    entries: state.Recording.entries,
+                    inputEntries: state.Recording.inputEntries,
+                    selectedDay: state.Recording.selectedDay,
+                    newEntry: changedEntryByOwner
                 }
-                return {
-                    Recording: {
-                        entries: state.Recording.entries,
-                        inputEntries: state.Recording.inputEntries,
-                        selectedDay:state.Recording.selectedDay,
-                        newEntry: changedEntryByOwner
-                    }
+            }
+        case CHANGE_NEW_ENTRY_PHONE:
+            let changedEntryByPhone = {
+                hourEntries: state.Recording.newEntry.hourEntries,
+                owner: state.Recording.newEntry.owner,
+                phone: action.value,
+                status: state.Recording.newEntry.status
+            }
+            return {
+                Recording: {
+                    entries: state.Recording.entries,
+                    inputEntries: state.Recording.inputEntries,
+                    selectedDay: state.Recording.selectedDay,
+                    newEntry: changedEntryByPhone
                 }
-            case CHANGE_NEW_ENTRY_PHONE:
-                let changedEntryByPhone = {
-                    hourEntries:state.Recording.newEntry.hourEntries,
-                    owner:state.Recording.newEntry.owner,
-                    phone:action.value,
-                    status:state.Recording.newEntry.status
-                }
-                return {
-                    Recording: {
-                        entries: state.Recording.entries,
-                        inputEntries: state.Recording.inputEntries,
-                        selectedDay:state.Recording.selectedDay,
-                        newEntry: changedEntryByPhone
-                    }
-                }
+            }
         default:
             return state;
 
