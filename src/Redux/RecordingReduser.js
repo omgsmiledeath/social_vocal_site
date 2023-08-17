@@ -37,20 +37,21 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
             else {
                 let index = stateNewEntry.hourEntries.findIndex((item) => item.checked === false);
                 stateNewEntry.hourEntries.slice(index, index);
+                debugger
             }
         }
         return item;
     });
 
-    let idArr = stateNewEntry.hourEntries.map((item) => item.id);
-    if (idArr.length > 1) {
-        for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
+    // let idArr = stateNewEntry.hourEntries.map((item) => item.id);
+    // if (idArr.length > 1) {
+    //     for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
             
-            tempEntries[i].checked = true;
-            stateNewEntry.hourEntries.push(tempEntries[i]);
-        }
+    //         tempEntries[i].checked = true;
+    //         stateNewEntry.hourEntries.push(tempEntries[i]);
+    //     }
 
-    }
+    // }
     return tempEntries;
 
 }
