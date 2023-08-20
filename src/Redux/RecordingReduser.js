@@ -35,11 +35,12 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
             item.checked = !item.checked;
             if (item.checked === true) {
                 stateNewEntry.hourEntries.push(item);
+                stateNewEntry.statusText.push(`Добавленно время: ${item.date}`);
             }
             else {
                 let index = stateNewEntry.hourEntries.findIndex((item) => item.checked === false);
                 stateNewEntry.hourEntries.slice(index, index);
-                debugger
+                
             }
         }
         return item;
@@ -97,7 +98,7 @@ let initialState = {
             }],
         inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(Date.now()),
-        newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS }
+        newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
     }
 }
 
@@ -122,7 +123,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: state.Recording.entries,
                     inputEntries: checkAction(state.Recording.inputEntries, state.Recording.newEntry, action),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: state.Recording.newEntry,
+                    newEntry: {...state.Recording.newEntry},
                 }
             };
         case ADD_NEW_ENTRY:
@@ -141,7 +142,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: [...state.Recording.entries, ...newEntries],
                     inputEntries: createInputEntries(state.Recording.selectedDay),
                     selectedDay: state.Recording.selectedDay,
-                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS }
+                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
                 }
             }
         case CHANGE_NEW_ENTRY_OWNER:
@@ -150,7 +151,8 @@ export const RecordingReducer = (state = initialState, action) => {
                 hourEntries: state.Recording.newEntry.hourEntries,
                 owner: action.value,
                 phone: state.Recording.newEntry.phone,
-                status: state.Recording.newEntry.status
+                status: state.Recording.newEntry.status,
+                statusText: state.Recording.newEntry.statusText
             }
             return {
                 Recording: {
@@ -165,7 +167,8 @@ export const RecordingReducer = (state = initialState, action) => {
                 hourEntries: state.Recording.newEntry.hourEntries,
                 owner: state.Recording.newEntry.owner,
                 phone: action.value,
-                status: state.Recording.newEntry.status
+                status: state.Recording.newEntry.status,
+                statusText:state.Recording.newEntry.statusText
             }
             return {
                 Recording: {
