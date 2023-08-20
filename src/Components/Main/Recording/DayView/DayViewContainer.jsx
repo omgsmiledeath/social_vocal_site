@@ -14,18 +14,17 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
         newArr.push(item);
         }
       })
-      
       let newInputEntries = state.Recording.inputEntries.map((item) => {
-         
          newArr.forEach(element => {
              let elementHour = element.date.getHours();
              let itemHour = item.date.getHours();
              if (elementHour===itemHour)
              item.disabled = true;
          });
-
+         return item;
+      });
       return newInputEntries; 
-   });}
+}
 
     return {
     selectedDay:state.Recording.selectedDay,
