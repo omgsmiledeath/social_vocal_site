@@ -28,7 +28,6 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
 
     return {
     selectedDay:state.Recording.selectedDay,
-    selectedDayEntries:filtredSelectedDayEntries(),
     inputEntries:filtredSelectedDayEntries(),
     newEntry:state.Recording.newEntry
     }

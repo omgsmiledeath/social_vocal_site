@@ -45,15 +45,15 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
         return item;
     });
 
-    let idArr = stateNewEntry.hourEntries.map((item) => item.id);
-    if (idArr.length > 1) {
-        for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
-            if (tempEntries[i].enabled===false) break;
-            tempEntries[i].checked = true;
-            stateNewEntry.hourEntries.push(tempEntries[i]);
-        }
+    // let idArr = stateNewEntry.hourEntries.map((item) => item.id);
+    // if (idArr.length > 1) {
+    //     for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
+    //         if (tempEntries[i].enabled===false) break;
+    //         tempEntries[i].checked = true;
+    //         stateNewEntry.hourEntries.push(tempEntries[i]);
+    //     }
 
-    }
+    // }
     return tempEntries;
 
 }
@@ -79,7 +79,13 @@ let initialState = {
                 date: new Date(2023, 7, 5, 18, 0),
                 status: CONFIRMED_STATUS,
                 owner: "band2"
-            },],
+            },
+            {
+                id:20,
+                date:new Date(2023,7,20,15,0),
+                status:CONFIRMED_STATUS,
+                owner:"band3"
+            }],
         inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(Date.now()),
         newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS }
