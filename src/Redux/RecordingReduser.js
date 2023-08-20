@@ -47,16 +47,25 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
 
     // let idArr = stateNewEntry.hourEntries.map((item) => item.id);
     // if (idArr.length > 1) {
-    //     for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
-    //         if (tempEntries[i].enabled===false) break;
-    //         tempEntries[i].checked = true;
-    //         stateNewEntry.hourEntries.push(tempEntries[i]);
-    //     }
+    //     debugger;
+        
+    //     MiddleInputsChecker(inputEntries,Math.max(...idArr),Math.min(...idArr));
 
     // }
-    return tempEntries;
+     return tempEntries;
 
 }
+// const MiddleInputsChecker = (inputEntries,maxId,minId) => {
+//     if(maxId<minId) return;
+//     if (inputEntries[maxId].checked===true) {
+        
+//         MiddleInputsChecker(inputEntries,maxId-1)
+//     }
+//     else {
+//         inputEntries[maxId].checked = !inputEntries[maxId].checked;
+//         MiddleInputsChecker(inputEntries,maxId-1);
+//     }
+// }
 
 //Начальное состояние для Reducer
 let initialState = {
