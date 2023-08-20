@@ -4,18 +4,11 @@ const DayView = (props) => {
     
     
     const onChangeInput=(e)=>{props.ChangeInputStatus(Number(e.target.id))};
-    const inputEntries = props.inputEntries.map((item) => {
-        let disabled = false;
-        props.selectedDayEntries.forEach(element => {
-            let elementHour = element.date.getHours();
-            let itemHour = item.date.getHours();
-            if (elementHour===itemHour)
-            disabled = true;
-        });
+    const inputEntries = props.inputEntries.map(item => {
         return (
         <div>
         <span>{item.date.getHours()}:00</span><input type="checkbox" id={item.id} key={item.id} onChange={onChangeInput} 
-        checked={item.checked} disabled={disabled}/>
+        checked={item.checked} disabled={item.disabled}/>
 
         </div>  
         );      

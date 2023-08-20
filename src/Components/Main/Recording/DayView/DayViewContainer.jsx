@@ -14,13 +14,23 @@ import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser
         newArr.push(item);
         }
       })
-      return newArr; 
-   } 
+      
+      let newInputEntries = state.Recording.inputEntries.map((item) => {
+         
+         newArr.forEach(element => {
+             let elementHour = element.date.getHours();
+             let itemHour = item.date.getHours();
+             if (elementHour===itemHour)
+             item.disabled = true;
+         });
+
+      return newInputEntries; 
+   });}
 
     return {
     selectedDay:state.Recording.selectedDay,
     selectedDayEntries:filtredSelectedDayEntries(),
-    inputEntries:state.Recording.inputEntries,
+    inputEntries:filtredSelectedDayEntries(),
     newEntry:state.Recording.newEntry
     }
  }

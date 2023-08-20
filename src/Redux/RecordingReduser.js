@@ -8,13 +8,15 @@ const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
 const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
+const CHANGE_DISABLE_INPUT_ENTRY = "CHANGE_DISABLE_INPUT_ENTRY";
 
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
 export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
-export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone })
+export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone });
+export const ChangeDisabledInputCreator = () => ({type:CHANGE_DISABLE_INPUT_ENTRY})
 //Временные методы
 const createInputEntries = (date) => {
     let entries = [];
@@ -23,7 +25,7 @@ const createInputEntries = (date) => {
         let month = date.getMonth();
         let day = date.getDate();
         let createDate = new Date(year, month, day, 10 + i);
-        entries.push({ id: i, date: createDate, checked: false })
+        entries.push({ id: i, date: createDate, checked: false,disabled:false})
     }
     return entries;
 }
@@ -43,15 +45,15 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
         return item;
     });
 
-    // let idArr = stateNewEntry.hourEntries.map((item) => item.id);
-    // if (idArr.length > 1) {
-    //     for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
-            
-    //         tempEntries[i].checked = true;
-    //         stateNewEntry.hourEntries.push(tempEntries[i]);
-    //     }
+    let idArr = stateNewEntry.hourEntries.map((item) => item.id);
+    if (idArr.length > 1) {
+        for (let i = Math.min(...idArr); i < Math.max(...idArr)-1; i++) {
+            if (tempEntries[i].enabled===false) break;
+            tempEntries[i].checked = true;
+            stateNewEntry.hourEntries.push(tempEntries[i]);
+        }
 
-    // }
+    }
     return tempEntries;
 
 }
@@ -158,6 +160,18 @@ export const RecordingReducer = (state = initialState, action) => {
                     newEntry: changedEntryByPhone
                 }
             }
+        // case CHANGE_DISABLE_INPUT_ENTRY:
+        //     let newInputEntries = state.Recording.inputEntries.map(()=> {
+                
+        //     });
+        //     return {
+        //         Recording: {
+        //             entries: state.Recording.entries,
+        //             inputEntries: ,
+        //             selectedDay: state.Recording.selectedDay,
+        //             newEntry: changedEntryByPhone
+        //         }
+        //     }
         default:
             return state;
 
