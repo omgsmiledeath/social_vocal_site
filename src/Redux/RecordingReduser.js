@@ -122,7 +122,6 @@ export const RecordingReducer = (state = initialState, action) => {
         case SET_NEW_ENTRY_STATUS:
             return state;
         case CHANGE_INPUT_ENTRY:
-            debugger;
             return {
                     entries: state.entries,
                     inputEntries: checkAction(state.inputEntries, state.newEntry, action),
