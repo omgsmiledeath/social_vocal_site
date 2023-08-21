@@ -5,9 +5,9 @@ import Header from './Components/SideBars/Header';
 import Footer from './Components/SideBars/Footer';
 import About from './Components/Main/About/About';
 import Blog from './Components/Main/Blog/Blog';
-import Course from './Components/Main/Course/Course';
 import Lessons from './Components/Main/Lessons/Lessons';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
+import CourseContainer from './Components/Main/Course/CourseContainer';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <Routes>
       <Route path='about' element={<About />} />
       <Route path='blog' element={<Blog />} />
-      <Route path='course' element={<Course />} />
+      <Route path='course' element={<CourseContainer />} />
       <Route path='recording' element={<RecordingContainer />} />
       <Route path='lessons' element={<Lessons />} />
       <Route path='/' element={<About />} />

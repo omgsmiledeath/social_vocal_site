@@ -3,7 +3,7 @@ const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
 const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
 
 const CHANGE_SELECTED_DAY = "CHANGE_SELECTED_DAY";
-const setNewEntryStatus = "SET_NEW_ENTRY_STATUS";
+const SET_NEW_ENTRY_STATUS = "SET_NEW_ENTRY_STATUS";
 const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
@@ -78,7 +78,7 @@ const MiddleInputsChecker = (newEntry,inputEntries,maxId,minId) => {
 
 //Начальное состояние для Reducer
 let initialState = {
-    Recording: {
+
         entries: [
             {
                 id: 1,
@@ -107,37 +107,31 @@ let initialState = {
         inputEntries: createInputEntries(new Date(Date.now())),
         selectedDay: new Date(Date.now()),
         newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
-    }
 }
 
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
-
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
-                Recording: {
-                    entries: state.Recording.entries,
+                    entries: state.entries,
                     selectedDay: action.day,
-                    newEntry: state.Recording.newEntry,
+                    newEntry: state.newEntry,
                     inputEntries: createInputEntries(action.day)
-                }
             };
-        case setNewEntryStatus.type:
+        case SET_NEW_ENTRY_STATUS:
             return state;
         case CHANGE_INPUT_ENTRY:
+            debugger;
             return {
-                Recording: {
-                    entries: state.Recording.entries,
-                    inputEntries: checkAction(state.Recording.inputEntries, state.Recording.newEntry, action),
-                    selectedDay: state.Recording.selectedDay,
-                    newEntry: {...state.Recording.newEntry},
-                }
+                    entries: state.entries,
+                    inputEntries: checkAction(state.inputEntries, state.newEntry, action),
+                    selectedDay: state.selectedDay,
+                    newEntry: {...state.newEntry},
             };
         case ADD_NEW_ENTRY:
-            let newEntry = state.Recording.newEntry;
+            let newEntry = state.newEntry;
             let newEntries = [];
-            debugger;
             for (let i = 0; i < newEntry.hourEntries.length; i++) {
                 newEntries.push({
                     id: 4 + i,
@@ -147,48 +141,40 @@ export const RecordingReducer = (state = initialState, action) => {
                 });
             }
             return {
-                Recording: {
-                    entries: [...state.Recording.entries, ...newEntries],
-                    inputEntries: createInputEntries(state.Recording.selectedDay),
-                    selectedDay: state.Recording.selectedDay,
+                    entries: [...state.entries, ...newEntries],
+                    inputEntries: createInputEntries(state.selectedDay),
+                    selectedDay: state.selectedDay,
                     newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
-                }
             }
         case CHANGE_NEW_ENTRY_OWNER:
-
             let changedEntryByOwner = {
-                hourEntries: state.Recording.newEntry.hourEntries,
+                hourEntries: state.newEntry.hourEntries,
                 owner: action.value,
-                phone: state.Recording.newEntry.phone,
-                status: state.Recording.newEntry.status,
-                statusText: state.Recording.newEntry.statusText
+                phone: state.newEntry.phone,
+                status: state.newEntry.status,
+                statusText: state.newEntry.statusText
             }
             return {
-                Recording: {
-                    entries: state.Recording.entries,
-                    inputEntries: state.Recording.inputEntries,
-                    selectedDay: state.Recording.selectedDay,
+                    entries: state.entries,
+                    inputEntries: state.inputEntries,
+                    selectedDay: state.selectedDay,
                     newEntry: changedEntryByOwner
-                }
             }
         case CHANGE_NEW_ENTRY_PHONE:
             let changedEntryByPhone = {
-                hourEntries: state.Recording.newEntry.hourEntries,
-                owner: state.Recording.newEntry.owner,
+                hourEntries: state.newEntry.hourEntries,
+                owner: state.newEntry.owner,
                 phone: action.value,
-                status: state.Recording.newEntry.status,
-                statusText:state.Recording.newEntry.statusText
+                status: state.newEntry.status,
+                statusText:state.newEntry.statusText
             }
             return {
-                Recording: {
-                    entries: state.Recording.entries,
-                    inputEntries: state.Recording.inputEntries,
-                    selectedDay: state.Recording.selectedDay,
+                    entries: state.entries,
+                    inputEntries: state.inputEntries,
+                    selectedDay: state.selectedDay,
                     newEntry: changedEntryByPhone
-                }
             }
         default:
             return state;
-
     }
 }

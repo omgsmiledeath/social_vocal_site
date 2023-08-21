@@ -3,7 +3,6 @@ import DayView from "./DayView";
 import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser";
 
  let mapStateToProps = (state) => {
-    
    let filtredSelectedDayEntries = () => {
       let newArr = [];
       state.Recording.entries.forEach( (item ) => {
