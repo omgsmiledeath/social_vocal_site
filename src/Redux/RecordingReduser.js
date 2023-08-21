@@ -131,8 +131,9 @@ export const RecordingReducer = (state = initialState, action) => {
                 }
             };
         case ADD_NEW_ENTRY:
-            let newEntries = [];
             let newEntry = state.Recording.newEntry;
+            let newEntries = [];
+            debugger;
             for (let i = 0; i < newEntry.hourEntries.length; i++) {
                 newEntries.push({
                     id: 4 + i,
