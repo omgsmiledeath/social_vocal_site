@@ -6,7 +6,7 @@ const ConfirmForm = (props) => {
         };
     let onOwnerChange =(e) => props.changeOwner(e.target.value);
     let onPhoneChange =(e) => props.changePhone(e.target.value);
-    let statuses = props.newEntry.statusText.map((item) => <li>{item}</li>)
+    let statuses = props.newEntry.statusText.map((item) => <li>{item.text}</li>)
     return (
         <div>
             <div>

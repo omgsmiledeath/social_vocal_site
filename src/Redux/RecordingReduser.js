@@ -33,12 +33,13 @@ const createInputEntries = (date) => {
 const hourEntriesPusher = (item,newEntry) => {
     if (item.checked === true) {
         newEntry.hourEntries.push(item);
-        newEntry.statusText.push(`Добавленно время: ${item.date}`);
+        newEntry.statusText.push({date:item.date,text:`Добавленно время: ${item.date}`});
     }
     else {
         let index = newEntry.hourEntries.findIndex((item) => item.checked === false);
         newEntry.hourEntries.splice(index, 1);
-        
+        index = newEntry.statusText.findIndex((subitem)=>subitem.date===item.date);
+        newEntry.statusText.splice(index,1);
     }
 }
 
@@ -56,6 +57,8 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
         MiddleInputsChecker(stateNewEntry,inputEntries,Math.max(...idArr)-1,Math.min(...idArr)-1);
 
     }
+    stateNewEntry.hourEntries.sort((a,b) => a.id - b.id);
+    stateNewEntry.statusText.sort((a,b) => a.date - b.date);
      return tempEntries;
 
 }
