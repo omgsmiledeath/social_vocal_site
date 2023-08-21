@@ -29,7 +29,7 @@ const createInputEntries = (date) => {
     }
     return entries;
 }
-
+//добавление статус сообщений по записям
 const hourEntriesPusher = (item,newEntry) => {
     if (item.checked === true) {
         newEntry.hourEntries.push(item);
@@ -42,7 +42,7 @@ const hourEntriesPusher = (item,newEntry) => {
         newEntry.statusText.splice(index,1);
     }
 }
-
+//отметки о выделенном времени на DayView
 const checkAction = (inputEntries, stateNewEntry, action) => {
     let tempEntries = inputEntries.map((item) => {
         if (item.id === action.checkedId) {
@@ -62,10 +62,11 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
      return tempEntries;
 
 }
+//Поиск и отметка input которые находятся между выделенными позициями
 const MiddleInputsChecker = (newEntry,inputEntries,maxId,minId) => {
     
-    if((maxId<=minId) || (maxId<0))  return;
-    if (inputEntries[maxId].checked===true) {
+    if((maxId<=minId) || (maxId<0) )  return;
+    if ((inputEntries[maxId].checked===true) || (inputEntries[maxId].disabled===true)) {
         MiddleInputsChecker(newEntry,inputEntries,maxId-1,minId)
     }
     else {
