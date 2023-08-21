@@ -8,7 +8,7 @@ const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
 const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
-const CHANGE_DISABLE_INPUT_ENTRY = "CHANGE_DISABLE_INPUT_ENTRY";
+
 
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
@@ -16,7 +16,7 @@ export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPU
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
 export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone });
-export const ChangeDisabledInputCreator = () => ({type:CHANGE_DISABLE_INPUT_ENTRY})
+
 //Временные методы
 const createInputEntries = (date) => {
     let entries = [];
@@ -178,18 +178,6 @@ export const RecordingReducer = (state = initialState, action) => {
                     newEntry: changedEntryByPhone
                 }
             }
-        // case CHANGE_DISABLE_INPUT_ENTRY:
-        //     let newInputEntries = state.Recording.inputEntries.map(()=> {
-                
-        //     });
-        //     return {
-        //         Recording: {
-        //             entries: state.Recording.entries,
-        //             inputEntries: ,
-        //             selectedDay: state.Recording.selectedDay,
-        //             newEntry: changedEntryByPhone
-        //         }
-        //     }
         default:
             return state;
 
