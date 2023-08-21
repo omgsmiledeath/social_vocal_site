@@ -131,19 +131,30 @@ export const RecordingReducer = (state = initialState, action) => {
         case ADD_NEW_ENTRY:
             let newEntry = state.newEntry;
             let newEntries = [];
-            for (let i = 0; i < newEntry.hourEntries.length; i++) {
-                newEntries.push({
-                    id: 4 + i,
-                    date: new Date(newEntry.hourEntries[i].date),
-                    status: CONFIRMED_STATUS,
-                    owner: newEntry.owner
-                });
-            }
-            return {
+            if(newEntry.hourEntries.length>0){
+                for (let i = 0; i < newEntry.hourEntries.length; i++) {
+                    newEntries.push({
+                        id: 4 + i,
+                        date: new Date(newEntry.hourEntries[i].date),
+                        status: CONFIRMED_STATUS,
+                        owner: newEntry.owner
+                    });
+                }
+                return {
                     entries: [...state.entries, ...newEntries],
                     inputEntries: createInputEntries(state.selectedDay),
                     selectedDay: state.selectedDay,
                     newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
+                }
+            } 
+            else {
+                state.newEntry.statusText.push({date:Date.now(),text:"Выберите время"})
+                return {
+                    entries: state.entries,
+                    inputEntries: state.inputEntries,
+                    selectedDay: state.selectedDay,
+                    newEntry: state.newEntry
+                }
             }
         case CHANGE_NEW_ENTRY_OWNER:
             let changedEntryByOwner = {
