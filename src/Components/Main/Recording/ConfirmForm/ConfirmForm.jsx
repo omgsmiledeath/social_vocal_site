@@ -6,7 +6,7 @@ const ConfirmForm = (props) => {
         };
     let onOwnerChange =(e) => props.changeOwner(e.target.value);
     let onPhoneChange =(e) => props.changePhone(e.target.value);
-    let statuses = props.newEntry.statusText.map((item) => <input value={item} />)
+    let statuses = props.newEntry.statusText.map((item) => <li>{item}</li>)
     return (
         <div>
             <div>
@@ -17,7 +17,9 @@ const ConfirmForm = (props) => {
             </div>
             
             <button onClick={onButtonClick}>Записаться</button>
+            <ul>
             {statuses}
+            </ul>
         </div>
     );
 }

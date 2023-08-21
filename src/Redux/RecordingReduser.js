@@ -29,44 +29,48 @@ const createInputEntries = (date) => {
     }
     return entries;
 }
+
+const hourEntriesPusher = (item,newEntry) => {
+    if (item.checked === true) {
+        newEntry.hourEntries.push(item);
+        newEntry.statusText.push(`Добавленно время: ${item.date}`);
+    }
+    else {
+        let index = newEntry.hourEntries.findIndex((item) => item.checked === false);
+        newEntry.hourEntries.splice(index, 1);
+        
+    }
+}
+
 const checkAction = (inputEntries, stateNewEntry, action) => {
     let tempEntries = inputEntries.map((item) => {
         if (item.id === action.checkedId) {
             item.checked = !item.checked;
-            if (item.checked === true) {
-                stateNewEntry.hourEntries.push(item);
-                stateNewEntry.statusText.push(`Добавленно время: ${item.date}`);
-            }
-            else {
-                let index = stateNewEntry.hourEntries.findIndex((item) => item.checked === false);
-                stateNewEntry.hourEntries.slice(index, index);
-                
-            }
+            hourEntriesPusher(item,stateNewEntry)
         }
         return item;
     });
 
-    // let idArr = stateNewEntry.hourEntries.map((item) => item.id);
-    // if (idArr.length > 1) {
-    //     debugger;
-        
-    //     MiddleInputsChecker(inputEntries,Math.max(...idArr),Math.min(...idArr));
+    let idArr = stateNewEntry.hourEntries.map((item) => item.id);
+    if (idArr.length > 1) {        
+        MiddleInputsChecker(stateNewEntry,inputEntries,Math.max(...idArr)-1,Math.min(...idArr)-1);
 
-    // }
+    }
      return tempEntries;
 
 }
-// const MiddleInputsChecker = (inputEntries,maxId,minId) => {
-//     if(maxId<minId) return;
-//     if (inputEntries[maxId].checked===true) {
-        
-//         MiddleInputsChecker(inputEntries,maxId-1)
-//     }
-//     else {
-//         inputEntries[maxId].checked = !inputEntries[maxId].checked;
-//         MiddleInputsChecker(inputEntries,maxId-1);
-//     }
-// }
+const MiddleInputsChecker = (newEntry,inputEntries,maxId,minId) => {
+    
+    if((maxId<=minId) || (maxId<0))  return;
+    if (inputEntries[maxId].checked===true) {
+        MiddleInputsChecker(newEntry,inputEntries,maxId-1,minId)
+    }
+    else {
+        inputEntries[maxId].checked = !inputEntries[maxId].checked;
+        hourEntriesPusher(inputEntries[maxId],newEntry)
+        MiddleInputsChecker(newEntry,inputEntries,maxId-1,minId);
+    }
+}
 
 //Начальное состояние для Reducer
 let initialState = {
