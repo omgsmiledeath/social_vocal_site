@@ -7,7 +7,7 @@ import About from './Components/Main/About/About';
 import Blog from './Components/Main/Blog/Blog';
 import Lessons from './Components/Main/Lessons/Lessons';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
-import CourseContainer from './Components/Main/Course/CourseContainer';
+import CoursesContainer from './Components/Main/Courses/CoursesContainer';
 
 function App() {
   return (
@@ -19,7 +19,7 @@ function App() {
       <Routes>
       <Route path='about' element={<About />} />
       <Route path='blog' element={<Blog />} />
-      <Route path='course' element={<CourseContainer />} />
+      <Route path='course' element={<CoursesContainer />} />
       <Route path='recording' element={<RecordingContainer />} />
       <Route path='lessons' element={<Lessons />} />
       <Route path='/' element={<About />} />

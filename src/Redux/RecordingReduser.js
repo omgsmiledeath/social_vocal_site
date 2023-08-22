@@ -153,7 +153,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: state.entries,
                     inputEntries: state.inputEntries,
                     selectedDay: state.selectedDay,
-                    newEntry: state.newEntry
+                    newEntry: {...state.newEntry}
                 }
             }
         case CHANGE_NEW_ENTRY_OWNER:
