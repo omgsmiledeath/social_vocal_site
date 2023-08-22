@@ -171,6 +171,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     newEntry: changedEntryByOwner
             }
         case CHANGE_NEW_ENTRY_PHONE:
+            if(action.value==='') state.newEntry.statusText.push({date:Date.now(),text:"Укажите номер телефона"});
             let changedEntryByPhone = {
                 hourEntries: state.newEntry.hourEntries,
                 owner: state.newEntry.owner,
