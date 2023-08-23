@@ -1,4 +1,5 @@
 import React from "react";
+import css from "./ConfirmForm.module.css";
 const ConfirmForm = (props) => {
     
     let onButtonClick = () => {
@@ -8,7 +9,7 @@ const ConfirmForm = (props) => {
     let onPhoneChange =(e) => props.changePhone(e.target.value);
     let statuses = props.newEntry.statusText.map((item) => <li>{item.text}</li>)
     return (
-        <div>
+        <div className={css['form_wrapp']}>
             <div>
                 <span>Ваше имя(название команды)</span><input onChange={onOwnerChange} value={props.newEntry.owner}/>
             </div>

@@ -1,0 +1,11 @@
+.form_wrapp {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.form_wrapp button {
+    margin-left: 30%;
+    margin-right: 30%;
+    height: 70px;
+}

@@ -3,12 +3,12 @@
     grid-template-columns: 100%;
     grid-template-rows: 100px 70% 15%;
     gap: 20px;
-    background-color: blueviolet;
+   
 }
 
 .header {
     grid-row: 1;
-    background-color: blueviolet;
+    background-color: rgb(169, 118, 218);
 }
 
 .header div {
@@ -27,7 +27,7 @@
 
 .footer {
     grid-row: 3;
-    background-color: blueviolet;
+    background-color: rgb(169, 118, 218);
 }
 
 .main {
