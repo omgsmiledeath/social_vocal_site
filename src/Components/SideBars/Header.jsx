@@ -1,23 +1,22 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
     return(
             <div>
-                <div>
-                <span><a href="\about">About</a></span>
-                </div>
-                <div>
-                <span><a href="\blog">Blog</a></span>
-                </div>
-                <div>
-                <span><a href="\course">Course</a></span>
-                </div>
-                <div>
-                <span><a href="\lessons">Lessons</a></span>
-                </div>
-                <div>
-                <span><a href="\recording">Recording</a></span>
-                </div>
+                <nav>
+                    <div><Link to="/about">About</Link></div>
+                    <div><Link to="/blog">Blog</Link></div>
+                    <div><Link to="/course">Course</Link></div>
+                    <div><Link to="/lessons">Lessons</Link></div>
+                    <div><Link to="/recording">Recording</Link></div>
+                
+                
+                
+                
+               
+                
+                </nav>
             </div>
     );
 }
