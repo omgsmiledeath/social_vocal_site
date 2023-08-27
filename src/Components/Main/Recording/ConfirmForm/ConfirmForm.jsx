@@ -18,9 +18,11 @@ const ConfirmForm = (props) => {
             </div>
             
             <button onClick={onButtonClick}>Записаться</button>
-            <ul>
-            {statuses}
-            </ul>
+            <div className={css['form_statuses']}>
+                <ul>
+                {statuses}
+                </ul>
+            </div>
         </div>
     );
 }

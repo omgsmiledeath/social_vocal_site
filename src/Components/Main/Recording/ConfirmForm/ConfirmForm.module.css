@@ -1,11 +1,19 @@
 .form_wrapp {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+    display: grid;
+    
 }
 
 .form_wrapp button {
     margin-left: 30%;
     margin-right: 30%;
     height: 70px;
+}
+
+.form_wrapp li {
+    font-size: 14px;
+}
+
+.form_statuses {
+    max-height: 20px;
+    max-width: 30px;
 }
