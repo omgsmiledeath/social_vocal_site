@@ -1,7 +1,7 @@
 
 import { connect } from 'react-redux';
 import Recording from './Recording';
-import { ChangeSelectedDayCreator } from "../../../Redux/RecordingReduser";
+import { ChangeSelectedDayCreator,GetEntriesAC} from "../../../Redux/RecordingReduser";
 
 let mapStateToProps = (state) => {
     return{
@@ -11,7 +11,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = (dispatch) => {
     return{
-        changeDay: (newDay) => { dispatch(ChangeSelectedDayCreator(newDay)) }
+        changeDay: (newDay) => { dispatch(ChangeSelectedDayCreator(newDay)) },
+        getEntries: (entries) => {dispatch(GetEntriesAC(entries))}
     }
 }
 

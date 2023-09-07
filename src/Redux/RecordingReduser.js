@@ -1,3 +1,5 @@
+
+
 //КОНСТАНТЫ
 const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
 const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
@@ -8,7 +10,7 @@ const CHANGE_INPUT_ENTRY = "CHANGE_INPUT_ENTRY";
 const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
 const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
-
+const GET_ENTRIES = "GET_ENTRIES";
 
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
@@ -16,6 +18,9 @@ export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPU
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
 export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone });
+export const GetEntriesAC =(entries)=> ({type:GET_ENTRIES,value:entries})
+
+
 
 //Временные методы
 const createInputEntries = (date) => {
@@ -77,40 +82,48 @@ const MiddleInputsChecker = (newEntry,inputEntries,maxId,minId) => {
 }
 
 //Начальное состояние для Reducer
-let initialState = {
+// let initialState = {
 
-        entries: [
-            {
-                id: 1,
-                date: new Date(2023, 7, 4, 18, 0),
-                status: CONFIRMED_STATUS,
-                owner: "band1"
-            },
-            {
-                id: 2,
-                date: new Date(2023, 7, 4, 19, 0),
-                status: CONFIRMED_STATUS,
-                owner: "band1"
-            },
-            {
-                id: 3,
-                date: new Date(2023, 7, 5, 18, 0),
-                status: CONFIRMED_STATUS,
-                owner: "band2"
-            },
-            {
-                id:20,
-                date:new Date(2023,7,20,15,0),
-                status:CONFIRMED_STATUS,
-                owner:"band3"
-            }],
-        inputEntries: createInputEntries(new Date(Date.now())),
-        selectedDay: new Date(Date.now()),
-        newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
+//         entries: [
+//             {
+//                 id: 1,
+//                 date: new Date(2023, 7, 4, 18, 0),
+//                 status: CONFIRMED_STATUS,
+//                 owner: "band1"
+//             },
+//             {
+//                 id: 2,
+//                 date: new Date(2023, 7, 4, 19, 0),
+//                 status: CONFIRMED_STATUS,
+//                 owner: "band1"
+//             },
+//             {
+//                 id: 3,
+//                 date: new Date(2023, 7, 5, 18, 0),
+//                 status: CONFIRMED_STATUS,
+//                 owner: "band2"
+//             },
+//             {
+//                 id:20,
+//                 date:new Date(2023,7,20,15,0),
+//                 status:CONFIRMED_STATUS,
+//                 owner:"band3"
+//             }],
+//         inputEntries: createInputEntries(new Date(Date.now())),
+//         selectedDay: new Date(Date.now()),
+//         newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
+// }
+
+let initialState = {
+    entries: [],
+    inputEntries: createInputEntries(new Date(Date.now())),
+    selectedDay: new Date(Date.now()),
+    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
 }
 
+
 //RecordingReducer 
-export const RecordingReducer = (state = initialState, action) => {
+export const RecordingReducer = (state =initialState, action) => {
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
@@ -184,7 +197,14 @@ export const RecordingReducer = (state = initialState, action) => {
                     inputEntries: state.inputEntries,
                     selectedDay: state.selectedDay,
                     newEntry: changedEntryByPhone
-            }
+            }   
+        case GET_ENTRIES:
+            return {
+                entries:action.value,
+                inputEntries:state.inputEntries,
+                selectedDay:state.selectedDay,
+                newEntry:state.newEntry
+            }    
         default:
             return state;
     }
