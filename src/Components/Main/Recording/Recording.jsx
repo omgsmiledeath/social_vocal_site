@@ -16,11 +16,13 @@ const getDate = (date) => {
 class Recording extends React.Component{
   constructor (props){
     super(props);
-    axios.get("http://127.0.0.1:5000/api/v1/entries")
+    axios.get("http://localhost:5000/api/v1/entries")
         .then((resp)=>{
             let tempres = resp.data.map(item => {
-            item.date = Date(item.date);
-            return item;
+              
+              let newitem = {id:item[0],date:Date(item[1]),status:item[2],owner:item[3],desc:item[4]};
+              
+            return newitem;
     })
     props.getEntries(tempres);}) 
 }

@@ -1,3 +1,4 @@
+import axios from "axios";
 
 
 //КОНСТАНТЫ
@@ -153,6 +154,7 @@ export const RecordingReducer = (state =initialState, action) => {
                         owner: newEntry.owner
                     });
                 }
+                axios.post("http://localhost:5000/api/v1/entries",newEntries).then((resp)=>console.log(resp.status))
                 return {
                     entries: [...state.entries, ...newEntries],
                     inputEntries: createInputEntries(state.selectedDay),
@@ -201,9 +203,9 @@ export const RecordingReducer = (state =initialState, action) => {
         case GET_ENTRIES:
             return {
                 entries:action.value,
-                inputEntries:state.inputEntries,
-                selectedDay:state.selectedDay,
-                newEntry:state.newEntry
+                inputEntries:[...state.inputEntries],
+                selectedDay:[...state.selectedDay],
+                newEntry:[...state.newEntry]
             }    
         default:
             return state;

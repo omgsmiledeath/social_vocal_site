@@ -1,8 +1,9 @@
 import React from "react";
 import css from "./ConfirmForm.module.css";
+
 const ConfirmForm = (props) => {
     
-    let onButtonClick = () => {
+    let onButtonClick = () => {    
          props.addEntry() 
         };
     let onOwnerChange =(e) => props.changeOwner(e.target.value);
