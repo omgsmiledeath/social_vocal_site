@@ -19,8 +19,7 @@ class Recording extends React.Component{
     axios.get("http://localhost:5000/api/v1/entries")
         .then((resp)=>{
             let tempres = resp.data.map(item => {
-              
-              let newitem = {id:item[0],date:Date(item[1]),status:item[2],owner:item[3],desc:item[4]};
+              let newitem = {id:item[0],date:new Date(item[1]),status:item[2],owner:item[3],desc:item[4]};
               
             return newitem;
     })

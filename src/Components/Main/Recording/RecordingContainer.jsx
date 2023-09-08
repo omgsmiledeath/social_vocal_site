@@ -4,7 +4,6 @@ import Recording from './Recording';
 import { ChangeSelectedDayCreator,GetEntriesAC} from "../../../Redux/RecordingReduser";
 
 let mapStateToProps = (state) => {
-    debugger
     return{
         date: state.Recording.selectedDay
     }

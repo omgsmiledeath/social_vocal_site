@@ -1,10 +1,15 @@
 import React from "react";
 import css from "./ConfirmForm.module.css";
-
+import axios from "axios";
 const ConfirmForm = (props) => {
     
-    let onButtonClick = () => {    
-         props.addEntry() 
+    let onButtonClick = () => {   
+        let entries = props.EntriesToPost(props.newEntry);
+        //axios.post("http://localhost:5000/api/v1/newentry",entries).then((resp)=>console.log(resp.status)) 
+        axios.post("httpL//localhost:5000/api/v1/newentry")
+        .
+        
+        props.addEntry() 
         };
     let onOwnerChange =(e) => props.changeOwner(e.target.value);
     let onPhoneChange =(e) => props.changePhone(e.target.value);

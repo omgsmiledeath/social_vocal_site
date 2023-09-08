@@ -1,4 +1,4 @@
-import axios from "axios";
+
 
 
 //КОНСТАНТЫ
@@ -35,6 +35,21 @@ const createInputEntries = (date) => {
     }
     return entries;
 }
+export const ConvertNEToEntry= (newEntry) => {
+            let newEntries = [];
+            if(newEntry.hourEntries.length>0){
+                for (let i = 0; i < newEntry.hourEntries.length; i++) {
+                    newEntries.push({
+                        id: 4 + i,
+                        date: new Date(newEntry.hourEntries[i].date),
+                        status: CONFIRMED_STATUS,
+                        owner: newEntry.owner
+                    });
+                }
+            return newEntries
+            }
+        }      
+
 //добавление статус сообщений по записям
 const hourEntriesPusher = (item,newEntry) => {
     if (item.checked === true) {
@@ -137,24 +152,14 @@ export const RecordingReducer = (state =initialState, action) => {
             return state;
         case CHANGE_INPUT_ENTRY:
             return {
-                    entries: state.entries,
+                    entries: [...state.entries],
                     inputEntries: checkAction(state.inputEntries, state.newEntry, action),
                     selectedDay: state.selectedDay,
                     newEntry: {...state.newEntry},
             };
         case ADD_NEW_ENTRY:
-            let newEntry = state.newEntry;
-            let newEntries = [];
-            if(newEntry.hourEntries.length>0){
-                for (let i = 0; i < newEntry.hourEntries.length; i++) {
-                    newEntries.push({
-                        id: 4 + i,
-                        date: new Date(newEntry.hourEntries[i].date),
-                        status: CONFIRMED_STATUS,
-                        owner: newEntry.owner
-                    });
-                }
-                axios.post("http://localhost:5000/api/v1/entries",newEntries).then((resp)=>console.log(resp.status))
+            if(state.newEntry.hourEntries.length>0){
+            let newEntries = ConvertNEToEntry(state.newEntry)
                 return {
                     entries: [...state.entries, ...newEntries],
                     inputEntries: createInputEntries(state.selectedDay),
@@ -204,8 +209,8 @@ export const RecordingReducer = (state =initialState, action) => {
             return {
                 entries:action.value,
                 inputEntries:[...state.inputEntries],
-                selectedDay:[...state.selectedDay],
-                newEntry:[...state.newEntry]
+                selectedDay:state.selectedDay,
+                newEntry:{...state.newEntry}
             }    
         default:
             return state;
