@@ -6,8 +6,18 @@ const ConfirmForm = (props) => {
     let onButtonClick = () => {   
         let entries = props.EntriesToPost(props.newEntry);
         //axios.post("http://localhost:5000/api/v1/newentry",entries).then((resp)=>console.log(resp.status)) 
-        axios.post("httpL//localhost:5000/api/v1/newentry")
-        .
+        axios({
+            method:'POST',
+            url:'http://localhost:5000/api/v1/newentry',
+            headers: { 
+                'x-apikey': '59a7ad19f5a9fa0808f11931',
+                'Access-Control-Allow-Origin' : '*',
+                'Access-Control-Allow-Methods':'GET,PUT,POST,DELETE,PATCH,OPTIONS',
+              },
+            params:entries
+        }).then((response)=>{
+            console.log(response)
+        })
         
         props.addEntry() 
         };

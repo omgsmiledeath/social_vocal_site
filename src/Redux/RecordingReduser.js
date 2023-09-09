@@ -40,7 +40,6 @@ export const ConvertNEToEntry= (newEntry) => {
             if(newEntry.hourEntries.length>0){
                 for (let i = 0; i < newEntry.hourEntries.length; i++) {
                     newEntries.push({
-                        id: 4 + i,
                         date: new Date(newEntry.hourEntries[i].date),
                         status: CONFIRMED_STATUS,
                         owner: newEntry.owner
