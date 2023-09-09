@@ -10,7 +10,7 @@ let initialState = {
     token:''
 }
 
-const UserReducer = (state=initialState,action){
+const UserReducer = (state=initialState,action)=>{
     switch (action.type){
         case USER_TRY_TO_LOGIN:
             return {
