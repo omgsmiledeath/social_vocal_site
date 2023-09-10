@@ -1,6 +1,7 @@
 import React from "react";
 import css from "./ConfirmForm.module.css";
-
+import { nanoid } from "nanoid";
+import axios from "axios";
 const ConfirmForm = (props) => {
     let onButtonClick = () => {
         let entries = props.EntriesToPost(props.newEntry);
@@ -18,14 +19,25 @@ const ConfirmForm = (props) => {
         };
 
         fetch("http://localhost:5000/api/v1/newentry", requestOptions)
-            .then(response => props.getEntries(response.data))
-            .then(result => console.log(result))
+            .then(response => {
+                axios.get("http://localhost:5000/api/v1/entries")
+                    .then((resp) => {
+                        let tempres = resp.data.map(item => {
+                            let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+
+                            return newitem;
+                        })
+                        props.addEntry()
+                        props.getEntries(tempres);
+                    })
+            })
+            .then((data) => console.log(data))
             .catch(error => console.log('error', error));
-        props.addEntry()
+
     };
     let onOwnerChange = (e) => props.changeOwner(e.target.value);
     let onPhoneChange = (e) => props.changePhone(e.target.value);
-    let statuses = props.newEntry.statusText.map((item) => <li>{item.text}</li>)
+    let statuses = props.newEntry.statusText.map((item) => <li key={nanoid()}>{item.text}</li>)
     return (
         <div className={css['form_wrapp']}>
             <div>

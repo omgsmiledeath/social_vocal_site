@@ -161,7 +161,7 @@ export const RecordingReducer = (state =initialState, action) => {
             if(state.newEntry.hourEntries.length>0){
             // let newEntries = ConvertNEToEntry(state.newEntry)
                 return {
-                    entries: [...state.entries],
+                    entries: [],
                     inputEntries: createInputEntries(state.selectedDay),
                     selectedDay: state.selectedDay,
                     newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
