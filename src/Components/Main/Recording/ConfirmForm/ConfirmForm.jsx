@@ -8,9 +8,6 @@ const ConfirmForm = (props) => {
         let data = JSON.stringify({
             "entries": [...entries]
         })
-        // axios.post("http://localhost:5000/api/v1/newentry", data
-        // ).then((resp) => console.log(resp.status))
-
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -22,7 +19,7 @@ const ConfirmForm = (props) => {
         };
 
         fetch("http://localhost:5000/api/v1/newentry", requestOptions)
-            .then(response => response.text())
+            .then(response => props.getEntries(response.data))
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
 

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import ConfirmForm from './ConfirmForm';
-import { AddNewEntryCreator, ChangeNewEntryOwnerCreator, ChangeNewEntryPhoneCreator } from "../../../../Redux/RecordingReduser";
+import { AddNewEntryCreator, ChangeNewEntryOwnerCreator, ChangeNewEntryPhoneCreator, GetEntriesAC } from "../../../../Redux/RecordingReduser";
 import { ConvertNEToEntry } from '../../../../Redux/RecordingReduser';
 let mapStateToProps = (state) => {
     return {
@@ -13,7 +13,8 @@ let mapDispatchToProps = (dispatch) => {
         addEntry : () => dispatch(AddNewEntryCreator()),
         changeOwner : (owner)=>dispatch(ChangeNewEntryOwnerCreator(owner)),
         changePhone: (phone)=>dispatch(ChangeNewEntryPhoneCreator(phone)),
-        EntriesToPost: (newEntry) => ConvertNEToEntry(newEntry) 
+        EntriesToPost: (newEntry) => ConvertNEToEntry(newEntry) ,
+        getEntries:(entries) => dispatch(GetEntriesAC(entries))
     }
 }
 
