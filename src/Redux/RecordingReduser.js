@@ -36,13 +36,14 @@ const createInputEntries = (date) => {
     return entries;
 }
 export const ConvertNEToEntry= (newEntry) => {
-            let newEntries = [];
+            let newEntries =[];
             if(newEntry.hourEntries.length>0){
                 for (let i = 0; i < newEntry.hourEntries.length; i++) {
                     newEntries.push({
                         date: new Date(newEntry.hourEntries[i].date),
                         status: CONFIRMED_STATUS,
-                        owner: newEntry.owner
+                        owner: newEntry.owner,
+                        desc:newEntry.phone
                     });
                 }
             return newEntries
