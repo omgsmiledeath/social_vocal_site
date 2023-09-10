@@ -1,8 +1,7 @@
 import React from "react";
 import css from "./ConfirmForm.module.css";
-import axios from "axios";
-const ConfirmForm = (props) => {
 
+const ConfirmForm = (props) => {
     let onButtonClick = () => {
         let entries = props.EntriesToPost(props.newEntry);
         let data = JSON.stringify({
@@ -22,7 +21,6 @@ const ConfirmForm = (props) => {
             .then(response => props.getEntries(response.data))
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
-
         props.addEntry()
     };
     let onOwnerChange = (e) => props.changeOwner(e.target.value);

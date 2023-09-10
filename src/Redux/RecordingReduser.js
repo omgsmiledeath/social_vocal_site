@@ -159,9 +159,9 @@ export const RecordingReducer = (state =initialState, action) => {
             };
         case ADD_NEW_ENTRY:
             if(state.newEntry.hourEntries.length>0){
-            let newEntries = ConvertNEToEntry(state.newEntry)
+            // let newEntries = ConvertNEToEntry(state.newEntry)
                 return {
-                    entries: [...state.entries, ...newEntries],
+                    entries: [...state.entries],
                     inputEntries: createInputEntries(state.selectedDay),
                     selectedDay: state.selectedDay,
                     newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
