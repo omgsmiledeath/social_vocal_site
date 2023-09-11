@@ -18,23 +18,30 @@ const ConfirmForm = (props) => {
             redirect: 'follow'
         };
 
-        fetch("http://localhost:5000/api/v1/newentry", requestOptions)
-            .then(response => {
-                axios.get("http://localhost:5000/api/v1/entries")
-                    .then((resp) => {
-                        let tempres = resp.data.map(item => {
-                            let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
-
-                            return newitem;
-                        })
-                        props.addEntry()
-                        props.getEntries(tempres);
-                    })
-            })
-            .then((data) => console.log(data))
-            .catch(error => console.log('error', error));
-
+        // fetch("http://localhost:5000/api/v1/newentry", requestOptions)
+        //     .then(response => {
+        //         axios.get("http://localhost:5000/api/v1/entries")
+        //             .then((resp) => {
+        //                 let tempres = resp.data.map(item => {
+        //                     let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+        //                     return newitem;
+        //                 })
+        //                 props.addEntry()
+        //                 props.getEntries(tempres);
+        //             })
+        //     })
+        //     .then((data) => console.log(data))
+        //     .catch(error => console.log('error', error));
+        axios.post("http://127.0.0.1:5000/api/v1/newentry",{
+            "entries": [...entries]
+        })
+        .then((response)=>{
+            console.log(response.data)
+            props.getEntries(response.data)
+        })
     };
+
+
     let onOwnerChange = (e) => props.changeOwner(e.target.value);
     let onPhoneChange = (e) => props.changePhone(e.target.value);
     let statuses = props.newEntry.statusText.map((item) => <li key={nanoid()}>{item.text}</li>)

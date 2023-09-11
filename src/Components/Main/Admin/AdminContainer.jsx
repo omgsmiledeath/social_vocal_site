@@ -1,12 +1,18 @@
-import React from "react";
+
 import { connect } from "react-redux";
 import Admin from "./Admin";
-mapDispatchToProps = (dispatch) => {
-
+import { GetAccessAC, GetEntriesAC } from "../../../Redux/AdminReducer";
+let mapDispatchToProps = (dispatch) => {
+    return {
+        getEntries: (entries) => dispatch(GetEntriesAC(entries)),
+        getAccess : (value) => dispatch(GetAccessAC(value))
+    }
 }
 
-mapStateToProps = (state)=>{
-
+let mapStateToProps = (state)=>{
+    return {
+        itAccess : state.Admin.itAccess
+    }
 }
 
 export const AdminContainer = connect(mapStateToProps,mapDispatchToProps)(Admin);

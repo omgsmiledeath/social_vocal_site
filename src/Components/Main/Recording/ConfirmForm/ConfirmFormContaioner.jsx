@@ -2,6 +2,8 @@ import { connect } from 'react-redux';
 import ConfirmForm from './ConfirmForm';
 import { AddNewEntryCreator, ChangeNewEntryOwnerCreator, ChangeNewEntryPhoneCreator, GetEntriesAC } from "../../../../Redux/RecordingReduser";
 import { ConvertNEToEntry } from '../../../../Redux/RecordingReduser';
+
+
 let mapStateToProps = (state) => {
     return {
         newEntry : state.Recording.newEntry
