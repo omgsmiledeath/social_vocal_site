@@ -26,7 +26,7 @@ export const AdminReducer = (state=initialState,action) => {
             }
         case CHANGE_ACCESS:
             return {
-                entries:[],
+                entries:state.entries,
                 itAccess:action.itAccess
             }    
         default:

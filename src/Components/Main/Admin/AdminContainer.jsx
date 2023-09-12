@@ -11,7 +11,8 @@ let mapDispatchToProps = (dispatch) => {
 
 let mapStateToProps = (state)=>{
     return {
-        itAccess : state.Admin.itAccess
+        itAccess : state.Admin.itAccess,
+        entries: state.Admin.entries
     }
 }
 
