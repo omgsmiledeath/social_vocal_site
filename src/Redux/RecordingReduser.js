@@ -4,6 +4,7 @@
 //КОНСТАНТЫ
 const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
 const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
+const NOT_APPROVED_STATUS = 'NOT_APPROVED_STATUS';
 
 const CHANGE_SELECTED_DAY = "CHANGE_SELECTED_DAY";
 const SET_NEW_ENTRY_STATUS = "SET_NEW_ENTRY_STATUS";
@@ -22,6 +23,8 @@ export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_P
 export const GetEntriesAC = (entries) => ({ type: GET_ENTRIES, value: entries })
 export const GetFiltredEntriesAC = (day) => ({ type: GET_FILTRED_ENTRIES, value: day })
 
+//Creator
+const blobNewEmptyCreator = () => ({ hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS, statusText: [] });
 
 //Временные методы
 const createInputEntries = (date) => {
@@ -31,7 +34,7 @@ const createInputEntries = (date) => {
         let month = date.getMonth();
         let day = date.getDate();
         let createDate = new Date(year, month, day, 10 + i);
-        entries.push({ id: i, date: createDate, checked: false, disabled: false })
+        entries.push({ id: i, date: createDate, checked: false, disabled: false ,status:NEW_ENTRY_STATUS})
     }
     return entries;
 }
@@ -41,7 +44,7 @@ export const ConvertNEToEntry = (newEntry) => {
         for (let i = 0; i < newEntry.hourEntries.length; i++) {
             newEntries.push({
                 date: new Date(newEntry.hourEntries[i].date),
-                status: CONFIRMED_STATUS,
+                status: NOT_APPROVED_STATUS,
                 owner: newEntry.owner,
                 desc: newEntry.phone
             });
@@ -134,7 +137,7 @@ let initialState = {
     entries: [],
     inputEntries: createInputEntries(new Date(Date.now())),
     selectedDay: new Date(Date.now()),
-    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
+    newEntry: blobNewEmptyCreator()
 }
 
 const filtredSelectedDayEntries = (day, entries = []) => {
@@ -155,8 +158,11 @@ const filtredSelectedDayEntries = (day, entries = []) => {
             newArr.forEach(element => {
                 let elementHour = element.date.getHours();
                 let itemHour = item.date.getHours();
-                if (elementHour === itemHour)
+                if (elementHour === itemHour){
                     item.disabled = true;
+                    item.status = element.status;
+                    CONFIRMED_STATUS          
+                }
             });
             return item;
         });
@@ -168,7 +174,6 @@ const filtredSelectedDayEntries = (day, entries = []) => {
 export const RecordingReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
-            
             return {
                 entries: state.entries,
                 selectedDay: action.day,
@@ -178,7 +183,6 @@ export const RecordingReducer = (state = initialState, action) => {
         case SET_NEW_ENTRY_STATUS:
             return state;
         case CHANGE_INPUT_ENTRY:
-
             return {
                 entries: state.entries,
                 inputEntries: checkAction(state.inputEntries, state.newEntry, action),
@@ -192,7 +196,7 @@ export const RecordingReducer = (state = initialState, action) => {
                     entries: [],
                     inputEntries: filtredSelectedDayEntries(state.selectedDay, state.entries),
                     selectedDay: state.selectedDay,
-                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
+                    newEntry: blobNewEmptyCreator()
                 }
             }
             else {
@@ -238,7 +242,7 @@ export const RecordingReducer = (state = initialState, action) => {
                 entries: action.value,
                 inputEntries: filtredSelectedDayEntries(state.selectedDay, action.value),
                 selectedDay: state.selectedDay,
-                newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
+                newEntry: blobNewEmptyCreator()
             }
         case GET_FILTRED_ENTRIES:
             return {

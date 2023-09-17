@@ -45,7 +45,7 @@
 }
 
 .checkbox_btn:hover {
-	color: #d6af01;
+	color: #9e881c;
 }
 
 .checkbox_btn input[type=checkbox]:active:not(:disabled) + span {
@@ -53,10 +53,15 @@
 	color: #000;
 }
 
-.checkbox_btn input[type=checkbox]:disabled + span {
+.checkbox_btn input[type=checkbox]:disabled:read-only + span {
 	background: #e21919;
 	color: #020202;
 	cursor: default;
+}
+
+.checkbox_btn input[type=checkbox]:disabled:not(:read-only) +span {
+	background: #f7d633;
+	color: #000;
 }
 
 .checkbox_btn input[type=checkbox]:checked:disabled + span {
