@@ -1,40 +1,19 @@
 import { connect } from "react-redux";
 import DayView from "./DayView";
-import { ChangeInputEntryStateCreator } from "../../../../Redux/RecordingReduser";
+import { ChangeInputEntryStateCreator, GetFiltredEntriesAC } from "../../../../Redux/RecordingReduser";
 
  let mapStateToProps = (state) => {
-   let filtredSelectedDayEntries = () => {
-      let newArr = [];
-      state.Recording.entries.map( (item ) => {
-         let thisday = Number(item.date.getDate());
-         let stateDay = Number(state.Recording.selectedDay.getDate())
-        if(thisday===stateDay)
-        {
-        newArr.push(item);
-        }
-      })
-      let newInputEntries = state.Recording.inputEntries.map((item) => {
-         newArr.forEach(element => {
-             let elementHour = element.date.getHours();
-             let itemHour = item.date.getHours();
-             if (elementHour===itemHour)
-             item.disabled = true;
-         });
-         return item;
-      });
-      return newInputEntries; 
-}
-
     return {
     selectedDay:state.Recording.selectedDay,
-    inputEntries:filtredSelectedDayEntries(),
+    inputEntries:state.Recording.inputEntries,
     newEntry:state.Recording.newEntry
     }
  }
 
  let mapDispatchToProps = (dispatch) => {
     return {
-    ChangeInputStatus: (id) => {dispatch(ChangeInputEntryStateCreator(id))}
+    ChangeInputStatus: (id) => {dispatch(ChangeInputEntryStateCreator(id))},
+    FiltredEntries: (day) => {dispatch(GetFiltredEntriesAC(day))}
     }
  }
 

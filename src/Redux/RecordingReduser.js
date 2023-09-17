@@ -12,7 +12,7 @@ const ADD_NEW_ENTRY = "ADD_NEW_ENTRY";
 const CHANGE_NEW_ENTRY_OWNER = "CHANGE_NEW_ENTRY_OWNER";
 const CHANGE_NEW_ENTRY_PHONE = "CHANGE_NEW_ENTRY_PHONE";
 const GET_ENTRIES = "GET_ENTRIES";
-
+const GET_FILTRED_ENTRIES = "GET_FILTRED_ENTRIES";
 //Action Creators
 export const ChangeSelectedDayCreator = (newDay) => { return { type: CHANGE_SELECTED_DAY, day: newDay } };
 export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPUT_ENTRY, checkedId: id } };
@@ -20,7 +20,7 @@ export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
 export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone });
 export const GetEntriesAC =(entries)=> ({type:GET_ENTRIES,value:entries})
-
+export const GetFiltredEntriesAC = (day) => ({type:GET_FILTRED_ENTRIES,value:day})
 
 
 //Временные методы
@@ -137,22 +137,45 @@ let initialState = {
     newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
 }
 
-
+const filtredSelectedDayEntries = (day,entries=[]) => {
+    let newArr = [];
+    entries.forEach((item) => {
+       let thisday = Number(item.date.getDate());
+       let stateDay = Number(day.getDate())
+      if(thisday===stateDay)
+      {
+        
+       newArr.push(item);
+      }
+    })
+    let newInputEntries = createInputEntries(day).map((item) => {
+       newArr.forEach(element => {
+           let elementHour = element.date.getHours();
+           let itemHour = item.date.getHours();
+           if (elementHour===itemHour)
+           item.disabled = true;
+       });
+       return item;
+    });
+    
+    return newInputEntries; 
+}
 //RecordingReducer 
-export const RecordingReducer = (state =initialState, action) => {
+export const RecordingReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
             return {
                     entries: state.entries,
                     selectedDay: action.day,
-                    newEntry: state.newEntry,
-                    inputEntries: createInputEntries(action.day)
+                    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]},
+                    inputEntries: filtredSelectedDayEntries(action.day,state.entries)
             };
         case SET_NEW_ENTRY_STATUS:
             return state;
         case CHANGE_INPUT_ENTRY:
+            
             return {
-                    entries: [...state.entries],
+                    entries: state.entries,
                     inputEntries: checkAction(state.inputEntries, state.newEntry, action),
                     selectedDay: state.selectedDay,
                     newEntry: {...state.newEntry},
@@ -162,7 +185,7 @@ export const RecordingReducer = (state =initialState, action) => {
             // let newEntries = ConvertNEToEntry(state.newEntry)
                 return {
                     entries: [],
-                    inputEntries: createInputEntries(state.selectedDay),
+                    inputEntries: filtredSelectedDayEntries(state.selectedDay,state.entries),
                     selectedDay: state.selectedDay,
                     newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
                 }
@@ -211,7 +234,15 @@ export const RecordingReducer = (state =initialState, action) => {
                 inputEntries:[...state.inputEntries],
                 selectedDay:state.selectedDay,
                 newEntry:{...state.newEntry}
-            }    
+            }  
+        case GET_FILTRED_ENTRIES:
+            
+            return {
+                entries: state.entries,
+                inputEntries: filtredSelectedDayEntries(state.selectedDay,state.entries),
+                selectedDay: state.selectedDay,
+                newEntry : {...state.newEntry}
+            }
         default:
             return state;
     }

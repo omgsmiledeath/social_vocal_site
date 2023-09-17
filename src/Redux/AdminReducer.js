@@ -12,7 +12,7 @@ export const GetEntriesAC = (newEntries) => ({type:GET_ENTRIES,entries:newEntrie
 export const GetAccessAC = (value) => ({type:CHANGE_ACCESS,itAccess:value});
 //Методы
 let initialState = () => ({
-    entries: [],
+    allEntries: [],
     itAccess : false
 })
 
@@ -21,12 +21,12 @@ export const AdminReducer = (state=initialState,action) => {
     switch (action.type) {
         case GET_ENTRIES:
             return {
-                entries:action.entries,
+                allEntries:action.allEntries,
                 itAccess:state.itAccess
             }
         case CHANGE_ACCESS:
             return {
-                entries:state.entries,
+                entries:state.allEntries,
                 itAccess:action.itAccess
             }    
         default:

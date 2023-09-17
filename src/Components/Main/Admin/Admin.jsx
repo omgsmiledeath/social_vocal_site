@@ -18,7 +18,7 @@ class Admin extends React.Component {
             console.log(response)
             if (response.status === 201) {
                 let tempres = response.data.map(item => {
-                    let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+                    let newitem = { id: item[0], daentrieste: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
                     return newitem;
                 })
                 this.props.getEntries(tempres)
