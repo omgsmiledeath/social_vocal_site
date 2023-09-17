@@ -5,18 +5,18 @@ import axios from "axios";
 const ConfirmForm = (props) => {
     let onButtonClick = () => {
         let entries = props.EntriesToPost(props.newEntry);
-        let data = JSON.stringify({
-            "entries": [...entries]
-        })
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+        // let data = JSON.stringify({
+        //     "entries": [...entries]
+        // })
+        // var myHeaders = new Headers();
+        // myHeaders.append("Content-Type", "application/json");
 
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: data,
-            redirect: 'follow'
-        };
+        // var requestOptions = {
+        //     method: 'POST',
+        //     headers: myHeaders,
+        //     body: data,
+        //     redirect: 'follow'
+        // };
 
         // fetch("http://localhost:5000/api/v1/newentry", requestOptions)
         //     .then(response => {
@@ -37,7 +37,12 @@ const ConfirmForm = (props) => {
         })
         .then((response)=>{
             console.log(response.data)
-            props.getEntries(response.data)
+            let tempres = response.data.map(item => {
+                let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+      
+                return newitem;
+              })
+            props.getEntries(tempres)
         })
     };
 

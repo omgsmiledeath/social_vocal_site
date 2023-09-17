@@ -19,8 +19,8 @@ export const ChangeInputEntryStateCreator = (id) => { return { type: CHANGE_INPU
 export const AddNewEntryCreator = () => { return { type: ADD_NEW_ENTRY } }
 export const ChangeNewEntryOwnerCreator = (owner) => ({ type: CHANGE_NEW_ENTRY_OWNER, value: owner });
 export const ChangeNewEntryPhoneCreator = (phone) => ({ type: CHANGE_NEW_ENTRY_PHONE, value: phone });
-export const GetEntriesAC =(entries)=> ({type:GET_ENTRIES,value:entries})
-export const GetFiltredEntriesAC = (day) => ({type:GET_FILTRED_ENTRIES,value:day})
+export const GetEntriesAC = (entries) => ({ type: GET_ENTRIES, value: entries })
+export const GetFiltredEntriesAC = (day) => ({ type: GET_FILTRED_ENTRIES, value: day })
 
 
 //Временные методы
@@ -31,36 +31,36 @@ const createInputEntries = (date) => {
         let month = date.getMonth();
         let day = date.getDate();
         let createDate = new Date(year, month, day, 10 + i);
-        entries.push({ id: i, date: createDate, checked: false,disabled:false})
+        entries.push({ id: i, date: createDate, checked: false, disabled: false })
     }
     return entries;
 }
-export const ConvertNEToEntry= (newEntry) => {
-            let newEntries =[];
-            if(newEntry.hourEntries.length>0){
-                for (let i = 0; i < newEntry.hourEntries.length; i++) {
-                    newEntries.push({
-                        date: new Date(newEntry.hourEntries[i].date),
-                        status: CONFIRMED_STATUS,
-                        owner: newEntry.owner,
-                        desc:newEntry.phone
-                    });
-                }
-            return newEntries
-            }
-        }      
+export const ConvertNEToEntry = (newEntry) => {
+    let newEntries = [];
+    if (newEntry.hourEntries.length > 0) {
+        for (let i = 0; i < newEntry.hourEntries.length; i++) {
+            newEntries.push({
+                date: new Date(newEntry.hourEntries[i].date),
+                status: CONFIRMED_STATUS,
+                owner: newEntry.owner,
+                desc: newEntry.phone
+            });
+        }
+        return newEntries
+    }
+}
 
 //добавление статус сообщений по записям
-const hourEntriesPusher = (item,newEntry) => {
+const hourEntriesPusher = (item, newEntry) => {
     if (item.checked === true) {
         newEntry.hourEntries.push(item);
-        newEntry.statusText.push({date:item.date,text:`Добавленно время: ${item.date}`});
+        newEntry.statusText.push({ date: item.date, text: `Добавленно время: ${item.date}` });
     }
     else {
         let index = newEntry.hourEntries.findIndex((item) => item.checked === false);
         newEntry.hourEntries.splice(index, 1);
-        index = newEntry.statusText.findIndex((subitem)=>subitem.date===item.date);
-        newEntry.statusText.splice(index,1);
+        index = newEntry.statusText.findIndex((subitem) => subitem.date === item.date);
+        newEntry.statusText.splice(index, 1);
     }
 }
 //отметки о выделенном времени на DayView
@@ -68,32 +68,32 @@ const checkAction = (inputEntries, stateNewEntry, action) => {
     let tempEntries = inputEntries.map((item) => {
         if (item.id === action.checkedId) {
             item.checked = !item.checked;
-            hourEntriesPusher(item,stateNewEntry)
+            hourEntriesPusher(item, stateNewEntry)
         }
         return item;
     });
 
     let idArr = stateNewEntry.hourEntries.map((item) => item.id);
-    if (idArr.length > 1) {        
-        MiddleInputsChecker(stateNewEntry,inputEntries,Math.max(...idArr)-1,Math.min(...idArr)-1);
+    if (idArr.length > 1) {
+        MiddleInputsChecker(stateNewEntry, inputEntries, Math.max(...idArr) - 1, Math.min(...idArr) - 1);
 
     }
-    stateNewEntry.hourEntries.sort((a,b) => a.id - b.id);
-    stateNewEntry.statusText.sort((a,b) => a.date - b.date);
-     return tempEntries;
+    stateNewEntry.hourEntries.sort((a, b) => a.id - b.id);
+    stateNewEntry.statusText.sort((a, b) => a.date - b.date);
+    return tempEntries;
 
 }
 //Поиск и отметка input которые находятся между выделенными позициями
-const MiddleInputsChecker = (newEntry,inputEntries,maxId,minId) => {
-    
-    if((maxId<=minId) || (maxId<0) )  return;
-    if ((inputEntries[maxId].checked===true) || (inputEntries[maxId].disabled===true)) {
-        MiddleInputsChecker(newEntry,inputEntries,maxId-1,minId)
+const MiddleInputsChecker = (newEntry, inputEntries, maxId, minId) => {
+
+    if ((maxId <= minId) || (maxId < 0)) return;
+    if ((inputEntries[maxId].checked === true) || (inputEntries[maxId].disabled === true)) {
+        MiddleInputsChecker(newEntry, inputEntries, maxId - 1, minId)
     }
     else {
         inputEntries[maxId].checked = !inputEntries[maxId].checked;
-        hourEntriesPusher(inputEntries[maxId],newEntry)
-        MiddleInputsChecker(newEntry,inputEntries,maxId-1,minId);
+        hourEntriesPusher(inputEntries[maxId], newEntry)
+        MiddleInputsChecker(newEntry, inputEntries, maxId - 1, minId);
     }
 }
 
@@ -134,69 +134,74 @@ let initialState = {
     entries: [],
     inputEntries: createInputEntries(new Date(Date.now())),
     selectedDay: new Date(Date.now()),
-    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
+    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
 }
 
-const filtredSelectedDayEntries = (day,entries=[]) => {
+const filtredSelectedDayEntries = (day, entries = []) => {
     let newArr = [];
-    entries.forEach((item) => {
-       let thisday = Number(item.date.getDate());
-       let stateDay = Number(day.getDate())
-      if(thisday===stateDay)
-      {
-        
-       newArr.push(item);
-      }
-    })
-    let newInputEntries = createInputEntries(day).map((item) => {
-       newArr.forEach(element => {
-           let elementHour = element.date.getHours();
-           let itemHour = item.date.getHours();
-           if (elementHour===itemHour)
-           item.disabled = true;
-       });
-       return item;
-    });
-    
-    return newInputEntries; 
+    if (entries.length === 0) {
+        return createInputEntries(day);
+    }
+    else {
+        entries.forEach((item) => {
+            let thisday = Number(item.date.getDate());
+            let stateDay = Number(day.getDate())
+            if (thisday === stateDay) {
+
+                newArr.push(item);
+            }
+        })
+        let newInputEntries = createInputEntries(day).map((item) => {
+            newArr.forEach(element => {
+                let elementHour = element.date.getHours();
+                let itemHour = item.date.getHours();
+                if (elementHour === itemHour)
+                    item.disabled = true;
+            });
+            return item;
+        });
+
+        return newInputEntries;
+    }
 }
 //RecordingReducer 
 export const RecordingReducer = (state = initialState, action) => {
     switch (action.type) {
         case CHANGE_SELECTED_DAY:
+            
             return {
-                    entries: state.entries,
-                    selectedDay: action.day,
-                    newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]},
-                    inputEntries: filtredSelectedDayEntries(action.day,state.entries)
+                entries: state.entries,
+                selectedDay: action.day,
+                newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS, statusText: [] },
+                inputEntries: filtredSelectedDayEntries(action.day, state.entries)
             };
         case SET_NEW_ENTRY_STATUS:
             return state;
         case CHANGE_INPUT_ENTRY:
-            
+
             return {
-                    entries: state.entries,
-                    inputEntries: checkAction(state.inputEntries, state.newEntry, action),
-                    selectedDay: state.selectedDay,
-                    newEntry: {...state.newEntry},
+                entries: state.entries,
+                inputEntries: checkAction(state.inputEntries, state.newEntry, action),
+                selectedDay: state.selectedDay,
+                newEntry: { ...state.newEntry },
             };
         case ADD_NEW_ENTRY:
-            if(state.newEntry.hourEntries.length>0){
-            // let newEntries = ConvertNEToEntry(state.newEntry)
+            if (state.newEntry.hourEntries.length > 0) {
+                // let newEntries = ConvertNEToEntry(state.newEntry)
                 return {
                     entries: [],
-                    inputEntries: filtredSelectedDayEntries(state.selectedDay,state.entries),
+                    inputEntries: filtredSelectedDayEntries(state.selectedDay, state.entries),
                     selectedDay: state.selectedDay,
-                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
+                    newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
                 }
-            } 
+            }
             else {
-                state.newEntry.statusText.push({date:Date.now(),text:"Выберите время"})
+                state.newEntry.statusText.push({ date: Date.now(), text: "Выберите время" })
                 return {
                     entries: state.entries,
                     inputEntries: state.inputEntries,
                     selectedDay: state.selectedDay,
-                    newEntry: {...state.newEntry}
+                    newEntry: { ...state.newEntry }
                 }
             }
         case CHANGE_NEW_ENTRY_OWNER:
@@ -208,40 +213,39 @@ export const RecordingReducer = (state = initialState, action) => {
                 statusText: state.newEntry.statusText
             }
             return {
-                    entries: state.entries,
-                    inputEntries: state.inputEntries,
-                    selectedDay: state.selectedDay,
-                    newEntry: changedEntryByOwner
+                entries: state.entries,
+                inputEntries: state.inputEntries,
+                selectedDay: state.selectedDay,
+                newEntry: changedEntryByOwner
             }
         case CHANGE_NEW_ENTRY_PHONE:
-            if(action.value==='') state.newEntry.statusText.push({date:Date.now(),text:"Укажите номер телефона"});
+            if (action.value === '') state.newEntry.statusText.push({ date: Date.now(), text: "Укажите номер телефона" });
             let changedEntryByPhone = {
                 hourEntries: state.newEntry.hourEntries,
                 owner: state.newEntry.owner,
                 phone: action.value,
                 status: state.newEntry.status,
-                statusText:state.newEntry.statusText
+                statusText: state.newEntry.statusText
             }
             return {
-                    entries: state.entries,
-                    inputEntries: state.inputEntries,
-                    selectedDay: state.selectedDay,
-                    newEntry: changedEntryByPhone
-            }   
+                entries: state.entries,
+                inputEntries: state.inputEntries,
+                selectedDay: state.selectedDay,
+                newEntry: changedEntryByPhone
+            }
         case GET_ENTRIES:
             return {
-                entries:action.value,
-                inputEntries:[...state.inputEntries],
-                selectedDay:state.selectedDay,
-                newEntry:{...state.newEntry}
-            }  
+                entries: action.value,
+                inputEntries: filtredSelectedDayEntries(state.selectedDay, action.value),
+                selectedDay: state.selectedDay,
+                newEntry: { hourEntries: [], owner: "", phone: '', status: NEW_ENTRY_STATUS, statusText: [] }
+            }
         case GET_FILTRED_ENTRIES:
-            
             return {
                 entries: state.entries,
-                inputEntries: filtredSelectedDayEntries(state.selectedDay,state.entries),
+                inputEntries: filtredSelectedDayEntries(state.selectedDay, state.entries),
                 selectedDay: state.selectedDay,
-                newEntry : {...state.newEntry}
+                newEntry: { ...state.newEntry }
             }
         default:
             return state;

@@ -25,6 +25,7 @@ class Recording extends React.Component {
   }
 
   componentDidMount() {
+    this.props.changeDay(new Date(Date.now()));
     axios.get("http://localhost:5000/api/v1/entries")
       .then((resp) => {
         let tempres = resp.data.map(item => {
