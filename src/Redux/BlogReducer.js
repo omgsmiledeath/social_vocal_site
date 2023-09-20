@@ -11,7 +11,7 @@ const initialState = () => ({
 })
 
 
-export const BlogReducer = (state,action) => {
+export const BlogReducer = (state=initialState,action) => {
     switch (action.type) {
         case GET_POSTS:
         return {

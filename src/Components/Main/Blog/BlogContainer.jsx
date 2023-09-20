@@ -4,7 +4,7 @@ import { GetPostsAC } from "../../../Redux/BlogReducer";
 
 let mapStateToProps = (state) => {
     return {
-        //posts : state.Blog.posts
+        posts : state.Blog.posts
     }
 }
 
