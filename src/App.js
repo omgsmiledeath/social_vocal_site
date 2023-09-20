@@ -8,6 +8,7 @@ import Blog from './Components/Main/Blog/Blog';
 import Lessons from './Components/Main/Lessons/Lessons';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 import CoursesContainer from './Components/Main/Courses/CoursesContainer';
+import BlogContainer from './Components/Main/Blog/BlogContainer';
 
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
     <div className='main'>
       <Routes>
       <Route path='about' element={<About />} />
-      <Route path='blog' element={<Blog />} />
+      <Route path='blog' element={<BlogContainer />} />
       <Route path='course' element={<CoursesContainer />} />
       <Route path='recording' element={<RecordingContainer />} />
       <Route path='lessons' element={<Lessons />} />

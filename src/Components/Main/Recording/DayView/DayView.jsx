@@ -35,7 +35,6 @@ class DayView extends React.Component {
     }
     
     render() {
-        debugger
         return (
             <div>
                 <div className={css.wrapper}>
