@@ -4,7 +4,6 @@ import './App.css';
 import Header from './Components/SideBars/Header';
 import Footer from './Components/SideBars/Footer';
 import About from './Components/Main/About/About';
-import Blog from './Components/Main/Blog/Blog';
 import Lessons from './Components/Main/Lessons/Lessons';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 import CoursesContainer from './Components/Main/Courses/CoursesContainer';

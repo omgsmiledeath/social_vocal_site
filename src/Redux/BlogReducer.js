@@ -6,7 +6,7 @@ export const GetPostsAC = (posts) => ({type:GET_POSTS,value:posts})
 
 
 const initialState = () => ({
-    posts: [],
+    posts:[],
     isAccess:false
 })
 

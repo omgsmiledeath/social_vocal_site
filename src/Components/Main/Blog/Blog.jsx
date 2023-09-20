@@ -2,10 +2,7 @@ import axios from "axios";
 import React from "react";
 
 class Blog extends React.Component {
-    constructor(props){
-        super(props)
-        //console.log(props)
-    }
+    
     componentDidMount(){
         axios.get("http://127.0.0.1:5000/api/v1/posts")
             .then((response)=> {
@@ -15,9 +12,21 @@ class Blog extends React.Component {
                 }
             })
     }
+    
     render() {
+        let PostList = () => {
+            debugger
+            this.props.posts.map ( item => {
+                return <div>
+                    <h6>{item.titul}</h6>
+                    <p>{item.textPost}</p>
+                    <text src={item.videourl} />
+                </div>
+            })
+        }
         return (
-            <div>Hei its my blog</div>
+            <div>{PostList()}</div>
+            
         );
     }
 }
