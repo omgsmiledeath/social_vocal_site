@@ -11,10 +11,10 @@ const CHANGE_ACCESS = "CHANGE_ACCESS";
 export const GetEntriesAC = (newEntries) => ({type:GET_ENTRIES,entries:newEntries});
 export const GetAccessAC = (value) => ({type:CHANGE_ACCESS,itAccess:value});
 //Методы
-let initialState = () => ({
+let initialState = {
     allEntries: [],
     itAccess : false
-})
+}
 
 
 export const AdminReducer = (state=initialState,action) => {

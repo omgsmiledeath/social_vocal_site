@@ -5,10 +5,10 @@ export const GetPostsAC = (posts) => ({type:GET_POSTS,value:posts})
 //Методы
 
 
-const initialState = () => ({
+const initialState = {
     posts:[],
     isAccess:false
-})
+}
 
 
 export const BlogReducer = (state=initialState,action) => {
