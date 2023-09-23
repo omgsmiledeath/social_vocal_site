@@ -8,7 +8,6 @@ class Blog extends React.Component {
             .then((response)=> {
                 if (response.status ===200){
                     this.props.getPosts(response.data)
-                    console.log(response.data)
                 }
             })
     }
@@ -16,7 +15,6 @@ class Blog extends React.Component {
     render() {
         let PostList = () => {
            return this.props.posts.map(item => {
-            console.log(item.videoUrl)
                 return <div key={item.id}>
                     <h6>{item.titul}</h6>
                     <p>{item.postText}</p>

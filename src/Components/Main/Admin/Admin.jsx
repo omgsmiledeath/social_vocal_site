@@ -2,14 +2,7 @@ import axios from "axios";
 import React from "react";
 
 class Admin extends React.Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            itAccess: props.itAccess,
-            entries: props.entries
-        }
 
-    }
     getAccess = () => {
         axios.post("http://127.0.0.1:5000/api/v1/login", {
             login: "Admin",
@@ -18,23 +11,17 @@ class Admin extends React.Component {
             console.log(response)
             if (response.status === 201) {
                 let tempres = response.data.map(item => {
-                    let newitem = { id: item[0], daentrieste: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+                    let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
                     return newitem;
                 })
                 this.props.getEntries(tempres)
                 this.props.getAccess(true)
-                this.setState((prevState, props) => {
-                    console.log(prevState)
-                    return {
-                        itAccess: true,
-                        entries: props.entries
-                    }
-                })
+                debugger
             }
         })
     };
     printListEntries = () => {
-        let tempEntries = this.state.entries.map((el) => (<li key={el.id}>{el.date.getDate()}- {el.owner}</li>))
+        let tempEntries = this.props.entries.map((el) => (<li key={el.id}>{el.date.getDate()}- {el.owner}</li>))
         console.log(tempEntries)
         return (
             <ul>{tempEntries}</ul>
@@ -44,7 +31,7 @@ class Admin extends React.Component {
 
 
     render() {
-        if (this.state.itAccess === true) {
+        if (this.props.itAccess === true) {
             return (
                 <div>
                     <h1>This is admin page</h1>

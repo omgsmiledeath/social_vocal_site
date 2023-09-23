@@ -8,6 +8,7 @@ import Lessons from './Components/Main/Lessons/Lessons';
 import RecordingContainer from './Components/Main/Recording/RecordingContainer';
 import CoursesContainer from './Components/Main/Courses/CoursesContainer';
 import BlogContainer from './Components/Main/Blog/BlogContainer';
+import { AdminContainer } from './Components/Main/Admin/AdminContainer';
 
 
 function App() {
@@ -24,7 +25,7 @@ function App() {
       <Route path='recording' element={<RecordingContainer />} />
       <Route path='lessons' element={<Lessons />} />
       <Route path='/' element={<About />} />
-      
+      <Route path='/admin' element={<AdminContainer />} />
       </Routes>
       </div>
       <div className='footer'> 
