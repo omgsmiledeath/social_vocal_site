@@ -20,7 +20,6 @@ let initialState = {
 export const AdminReducer = (state=initialState,action) => {
     switch (action.type) {
         case GET_ENTRIES:
-            debugger
             return {
                 allEntries:action.entries,
                 itAccess:state.itAccess

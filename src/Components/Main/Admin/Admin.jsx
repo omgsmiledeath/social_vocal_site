@@ -2,7 +2,12 @@ import axios from "axios";
 import React from "react";
 
 class Admin extends React.Component {
-
+    constructor(props){
+        super(props);
+        if (props.itAccess ===true){
+            this.getAccessButton();
+        }
+    }
     getAccessButton = () => {
         axios.post("http://127.0.0.1:5000/api/v1/login", {
             login: "Admin",

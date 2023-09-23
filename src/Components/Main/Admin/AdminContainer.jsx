@@ -10,7 +10,6 @@ let mapDispatchToProps = (dispatch) => {
 }
 
 let mapStateToProps = (state)=>{
-    debugger
     return {
         itAccess : state.Admin.itAccess,
         entries: state.Admin.allEntries
