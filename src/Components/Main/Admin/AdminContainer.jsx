@@ -4,12 +4,13 @@ import Admin from "./Admin";
 import { GetAccessAC, GetEntriesAC } from "../../../Redux/AdminReducer";
 let mapDispatchToProps = (dispatch) => {
     return {
-        getEntries: (entries) => dispatch(GetEntriesAC(entries)),
+        getEntriesAdmin: (entries) => dispatch(GetEntriesAC(entries)),
         getAccess : (value) => dispatch(GetAccessAC(value))
     }
 }
 
 let mapStateToProps = (state)=>{
+    debugger
     return {
         itAccess : state.Admin.itAccess,
         entries: state.Admin.allEntries

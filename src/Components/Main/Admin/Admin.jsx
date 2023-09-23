@@ -3,7 +3,7 @@ import React from "react";
 
 class Admin extends React.Component {
 
-    getAccess = () => {
+    getAccessButton = () => {
         axios.post("http://127.0.0.1:5000/api/v1/login", {
             login: "Admin",
             password: "Admin"
@@ -14,9 +14,8 @@ class Admin extends React.Component {
                     let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
                     return newitem;
                 })
-                this.props.getEntries(tempres)
+                this.props.getEntriesAdmin(tempres)
                 this.props.getAccess(true)
-                debugger
             }
         })
     };
@@ -45,7 +44,7 @@ class Admin extends React.Component {
             return (
                 <div>
                     <h1>ACCESS DENIED</h1>
-                    <button content="Получить доступ" onClick={this.getAccess} />
+                    <button content="Получить доступ" onClick={this.getAccessButton} />
                 </div>
             )
         }

@@ -10,6 +10,7 @@ let mapStateToProps = (state) => {
 }
 
 let mapDispatchToProps = (dispatch) => {
+    
     return{
         changeDay: (newDay) => { dispatch(ChangeSelectedDayCreator(newDay)) },
         getEntries: (entries) => {dispatch(GetEntriesAC(entries))}
