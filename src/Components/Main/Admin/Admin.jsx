@@ -1,10 +1,11 @@
 import axios from "axios";
 import React from "react";
+import { CONFIRMED_STATUS, NEW_ENTRY_STATUS, NOT_APPROVED_STATUS,REJECTED_STATUS } from "../../../Redux/AdminReducer";
 
 class Admin extends React.Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        if (props.itAccess ===true){
+        if (props.itAccess === true) {
             this.getAccessButton();
         }
     }
@@ -24,8 +25,45 @@ class Admin extends React.Component {
             }
         })
     };
+    getOptions =(status) => {
+        switch (status) {
+            case NEW_ENTRY_STATUS:
+        return (<select>
+            <option >{CONFIRMED_STATUS}</option>
+            <option >{NOT_APPROVED_STATUS}</option>
+            <option selected>{NEW_ENTRY_STATUS}</option>
+            <option >{REJECTED_STATUS}</option>
+        </select>)
+        case CONFIRMED_STATUS:
+            return (<select>
+                <option selected>{CONFIRMED_STATUS}</option>
+                <option >{NOT_APPROVED_STATUS}</option>
+                <option >{NEW_ENTRY_STATUS}</option>
+                <option >{REJECTED_STATUS}</option>
+            </select>)
+        case NOT_APPROVED_STATUS:
+            return (<select>
+                <option >{CONFIRMED_STATUS}</option>
+                <option selected>{NOT_APPROVED_STATUS}</option>
+                <option >{NEW_ENTRY_STATUS}</option>
+                <option >{REJECTED_STATUS}</option>
+            </select>)
+        default :
+        return (<select>
+            <option >{CONFIRMED_STATUS}</option>
+            <option >{NOT_APPROVED_STATUS}</option>
+            <option >{NEW_ENTRY_STATUS}</option>
+            <option >{REJECTED_STATUS}</option>
+        </select>)
+        }
+    }
     printListEntries = () => {
-        let tempEntries = this.props.entries.map((el) => (<li key={el.id}>{el.date.getDate()}- {el.owner}</li>))
+        let tempEntries = this.props.entries.map((el) => {
+            return (<li key={el.id}>
+                {el.date.getDate()}- {el.owner}
+                {this.getOptions(el.status)}
+            </li>)
+        })
         console.log(tempEntries)
         return (
             <ul>{tempEntries}</ul>

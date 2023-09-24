@@ -2,7 +2,7 @@
 
 
 //КОНСТАНТЫ
-const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
+//const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
 const NEW_ENTRY_STATUS = "NEW_ENTRY_STATUS";
 const NOT_APPROVED_STATUS = 'NOT_APPROVED_STATUS';
 
@@ -160,8 +160,7 @@ const filtredSelectedDayEntries = (day, entries = []) => {
                 let itemHour = item.date.getHours();
                 if (elementHour === itemHour){
                     item.disabled = true;
-                    item.status = element.status;
-                    CONFIRMED_STATUS          
+                    item.status = element.status;          
                 }
             });
             return item;
