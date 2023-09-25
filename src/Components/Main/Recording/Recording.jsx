@@ -26,17 +26,18 @@ class Recording extends React.Component {
 
   componentDidMount() {
     this.props.changeDay(new Date(Date.now()));
-    axios.get("http://localhost:5000/api/v1/entries")
+    axios.get(`http://localhost:5000/api/v1/entries?day=${this.props.date.getDate()}`)
       .then((resp) => {
         let tempres = resp.data.map(item => {
-          let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
-
+          // let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+            let newitem = {id:item[0],date:item[1],status:item[2]}
           return newitem;
         })
         this.props.getEntries(tempres);
         ;
       })
   }
+  
   componentWillUnmount(){
     
     this.props.changeDay(new Date(Date.now()))
@@ -50,7 +51,20 @@ class Recording extends React.Component {
     return `${year}-${month}-${day}`;
   }
 
-  onButtonClick = (e) => this.props.changeDay(new Date(e.target.value));
+  onButtonClick = (e) => {
+    let date = new Date(e.target.value);
+    this.props.changeDay(date);
+    axios.get(`http://localhost:5000/api/v1/entries?day=${date.getDate()}`)
+    .then((resp) => {
+      let tempres = resp.data.map(item => {
+        // let newitem = { id: item[0], date: new Date(item[1]), status: item[2], owner: item[3], desc: item[4] };
+          let newitem = {id:item[0],date:new Date(item[1]),status:item[2]}
+        return newitem;
+      })
+      this.props.getEntries(tempres);
+      ;
+    })
+  }
 
   render() {
 

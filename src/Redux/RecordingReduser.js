@@ -139,23 +139,44 @@ let initialState = {
     selectedDay: new Date(Date.now()),
     newEntry: blobNewEmptyCreator()
 }
+//Старый метод до изменения работы API
+// const filtredSelectedDayEntries = (day, entries = []) => {
+//     let newArr = [];
+//     if (entries.length === 0) {
+//         return createInputEntries(day);
+//     }
+//     else {
+//         entries.forEach((item) => {
+//             debugger
+//             let thisday = Number(item.date.getDate());
+//             let stateDay = Number(day.getDate())
+//             if (thisday === stateDay) {
 
+//                 newArr.push(item);
+//             }
+//         })
+//         let newInputEntries = createInputEntries(day).map((item) => {
+//             newArr.forEach(element => {
+//                 let elementHour = element.date.getHours();
+//                 let itemHour = item.date.getHours();
+//                 if (elementHour === itemHour){
+//                     item.disabled = true;
+//                     item.status = element.status;          
+//                 }
+//             });
+//             return item;
+//         });
+
+//         return newInputEntries;
+//     }
+// }
 const filtredSelectedDayEntries = (day, entries = []) => {
-    let newArr = [];
     if (entries.length === 0) {
         return createInputEntries(day);
     }
     else {
-        entries.forEach((item) => {
-            let thisday = Number(item.date.getDate());
-            let stateDay = Number(day.getDate())
-            if (thisday === stateDay) {
-
-                newArr.push(item);
-            }
-        })
         let newInputEntries = createInputEntries(day).map((item) => {
-            newArr.forEach(element => {
+            entries.forEach(element => {
                 let elementHour = element.date.getHours();
                 let itemHour = item.date.getHours();
                 if (elementHour === itemHour){
