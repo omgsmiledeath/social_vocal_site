@@ -1,7 +1,7 @@
 .main_content {
     display: grid;
     grid-template-columns: 100%;
-    grid-template-rows: 100px 70% 15%;
+    grid-template-rows: 80px 70% 20%;
     gap: 20px;
    
 }
@@ -9,6 +9,8 @@
 .header {
     grid-row: 1;
     background-color: rgb(169, 118, 218);
+    text-align: center;
+    
 }
 
 .header div {

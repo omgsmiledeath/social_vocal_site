@@ -13,7 +13,7 @@ import { AdminContainer } from './Components/Main/Admin/AdminContainer';
 
 function App() {
   return (
-   <div >
+   <div  className='main_content'>
     <div className='header'>   
        <Header /> 
        </div>
