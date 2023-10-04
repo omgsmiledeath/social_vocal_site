@@ -8,10 +8,11 @@ import { Provider } from 'react-redux';
 import store from './Redux/Redux_store';
 
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+const rootElem = document.getElementById('root');
+if(!rootElem) throw new Error('нет root элемента')
+const root = ReactDOM.createRoot(rootElem);
 root.render(
-  
   <BrowserRouter >
   <Provider store={store} >
     <App />

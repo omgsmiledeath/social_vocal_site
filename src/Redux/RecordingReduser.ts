@@ -1,5 +1,5 @@
 
-
+import { QueryEntry, ReducerEntry, ReducerInitialState } from "../Types/Interfaces";
 
 //КОНСТАНТЫ
 //const CONFIRMED_STATUS = 'CONFIRMED_STATUS';
@@ -27,8 +27,8 @@ export const GetFiltredEntriesAC = (day) => ({ type: GET_FILTRED_ENTRIES, value:
 const blobNewEmptyCreator = () => ({ hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS, statusText: [] });
 
 //Временные методы
-const createInputEntries = (date) => {
-    let entries = [];
+const createInputEntries = (date:Date) => {
+    let entries:ReducerEntry[] = [];
     for (let i = 1; i <= 13; i++) {
         let year = date.getFullYear();
         let month = date.getMonth();
@@ -39,7 +39,7 @@ const createInputEntries = (date) => {
     return entries;
 }
 export const ConvertNEToEntry = (newEntry) => {
-    let newEntries = [];
+    let newEntries:QueryEntry[] = [];
     if (newEntry.hourEntries.length > 0) {
         for (let i = 0; i < newEntry.hourEntries.length; i++) {
             newEntries.push({
@@ -133,7 +133,7 @@ const MiddleInputsChecker = (newEntry, inputEntries, maxId, minId) => {
 //         newEntry: { hourEntries: [], owner: "1111", phone: '', status: NEW_ENTRY_STATUS,statusText:[]}
 // }
 
-let initialState = {
+let initialState : ReducerInitialState= {
     entries: [],
     inputEntries: createInputEntries(new Date(Date.now())),
     selectedDay: new Date(Date.now()),
@@ -170,7 +170,7 @@ let initialState = {
 //         return newInputEntries;
 //     }
 // }
-const filtredSelectedDayEntries = (day, entries = []) => {
+const filtredSelectedDayEntries = (day, entries :QueryEntry[]= []) => {
     if (entries.length === 0) {
         return createInputEntries(day);
     }

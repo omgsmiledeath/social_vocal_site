@@ -16,11 +16,11 @@ export const NOT_APPROVED_STATUS = 'NOT_APPROVED_STATUS';
 
 //AC
 export const GetEntriesAC = (newEntries) => ({type:GET_ENTRIES,entries:newEntries});
-export const GetAccessAC = (value) => ({type:CHANGE_ACCESS,itAccess:value});
-export const EditEntryStatusAdminAC = (status) =>({type:EDIT_ENTRY_STATUS,status:status});
-export const EditEntryDateAdminAC = (date) =>({type:EDIT_ENTRY_DATE,date:date});
-export const EditEntryOwnerAdminAC =(owner) => ({type:EDIT_ENTRY_OWNER,owner:owner});
-export const EditEntryDescAdminAC = (desc) => ({type:EDIT_ENTRY_DESC,desc:desc});
+export const GetAccessAC = (value:boolean) => ({type:CHANGE_ACCESS,itAccess:value});
+export const EditEntryStatusAdminAC = (status:string) =>({type:EDIT_ENTRY_STATUS,status:status});
+export const EditEntryDateAdminAC = (date:Date) =>({type:EDIT_ENTRY_DATE,date:date});
+export const EditEntryOwnerAdminAC =(owner:string) => ({type:EDIT_ENTRY_OWNER,owner:owner});
+export const EditEntryDescAdminAC = (desc:string) => ({type:EDIT_ENTRY_DESC,desc:desc});
 
 //Методы
 let initialState = {
