@@ -6,6 +6,21 @@ export interface ReducerEntry {
     status:string
 }
 
+export interface IReducerAction {
+    type:string
+}
+export interface IChangeInputIdAction extends IReducerAction {
+    checkedId:number;
+}
+export interface IChangeDayAction extends IReducerAction{
+    day:Date
+}
+export interface IChangeTextInputAction extends IReducerAction{
+    value:string
+}
+export interface IGetEntriesAction extends IReducerAction {
+    value:QueryEntry[]
+}
 export interface QueryEntry{
     date:Date,
     status:string,
@@ -26,7 +41,7 @@ export interface ReducerInitialState {
 //     desc:string
 // }
 type StatusText = {
-    date:number,
+    date:Date,
     text:string
 }
 export interface NewEntry{
