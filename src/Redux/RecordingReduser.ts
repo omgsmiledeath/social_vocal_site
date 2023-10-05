@@ -1,5 +1,4 @@
 
-import { act } from "react-dom/test-utils";
 import { IChangeDayAction, IChangeInputIdAction, IChangeTextInputAction, IGetEntriesAction, IReducerAction, NewEntry, QueryEntry, ReducerEntry, ReducerInitialState } from "../Types/Interfaces";
 
 //КОНСТАНТЫ

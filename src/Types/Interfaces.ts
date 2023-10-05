@@ -21,6 +21,9 @@ export interface IChangeTextInputAction extends IReducerAction{
 export interface IGetEntriesAction extends IReducerAction {
     value:QueryEntry[]
 }
+export interface IBoolAction extends IReducerAction {
+    value:boolean
+}
 export interface QueryEntry{
     date:Date,
     status:string,

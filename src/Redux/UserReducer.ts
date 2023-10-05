@@ -2,15 +2,15 @@
 const USER_TRY_TO_LOGIN = 'USER_TRY_TO_LOGIN';
 
 
-//ACTRION CREATORS
-export const TryToLoginAC = (options) => ({type:USER_TRY_TO_LOGIN,options})
+//ACTION CREATORS
+export const TryToLoginAC = (options:any) => ({type:USER_TRY_TO_LOGIN,options})
 
 let initialState = {
     username:'',
     token:''
 }
 
-const UserReducer = (state=initialState,action)=>{
+const UserReducer = (state=initialState,action:any)=>{
     switch (action.type){
         case USER_TRY_TO_LOGIN:
             return {
